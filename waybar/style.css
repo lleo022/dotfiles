@@ -1,132 +1,42 @@
-/* Tokyo Night Colors */
-@define-color bg #1a1b26;
-@define-color fg #c0caf5;
-@define-color black #414868;
-@define-color red #f7768e;
-@define-color green #9ece6a;
-@define-color yellow #e0af68;
-@define-color blue #7aa2f7;
-@define-color magenta #bb9af7;
-@define-color cyan #7dcfff;
-@define-color white #a9b1d6;
-@define-color orange #ff9e64;
-@define-color purple #9d7cd8;
-@define-color teal #1abc9c;
+@import url("colors.css");
 
-/* Opacity variants for the bar and tooltips */
-@define-color bg-opacity rgba(26, 27, 38, 0.85);
-@define-color surface #24283b;
-@define-color selection #33467c;
-
-/* Global styles */
 * {
     font-size: 14px;
     font-weight: bold;
-    padding: 0;
-    margin: 0;
+    font-family: "JetBrainsMono Nerd Font", "Material Symbols Outlined";
 }
 
 #waybar {
-    border: none;
-    margin: 5px 15px; /* Floating effect */
-    background-color: @bg;
-    color: @fg;
-    font-family: "JetBrainsMono Nerd Font";
-    border-radius: 15px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    background-color: var(--bg);
+    color: var(--fg);
+    border-bottom: 2px solid var(--selection); /* Subtle separator from windows */
+    /* border-radius: 0; Full width bars usually don't have rounded corners */
 }
 
-/* Base styles for all modules */
-#custom-icon,
-#workspaces,
-#temperature,
-#cpu,
-#memory,
-#battery,
-#backlight,
-#wireplumber,
-#custom-notification,
-#language,
-#clock,
-#network,
-#custom-power,
-#custom-media,
-#tray {
-    margin: 5px 4px;
-    padding: 0px 8px;
+/* Internal Pill Styling */
+/* We keep these rounded so the individual modules still look clean */
+#workspaces, .extras, .audio, .brightness, #clock, #mpris {
+    background-color: var(--surface);
+    border-radius: 10px;
+    margin: 4px 2px;
+    padding: 0 8px;
 }
 
-/* Left Section */
-#custom-icon {
-    color: @blue;
-    font-size: 18px;
+/* Slider Customization */
+#backlight-slider trough, #pulseaudio-slider trough {
+    min-width: 80px;
+    min-height: 8px;
+    background-color: var(--black);
+    border-radius: 5px;
 }
 
-#workspaces {
-    background-color: @surface;
-    border-radius: 12px;
+#backlight-slider highlight, #pulseaudio-slider highlight {
+    background-color: var(--blue);
+    border-radius: 5px;
 }
 
-#workspaces button {
-    color: @black;
-    padding: 0px 4px;
-}
-
-#workspaces button.active {
-    color: @magenta;
-    border-bottom: 2px solid @magenta;
-}
-
-/* Media Player (Spotify) */
-#custom-media {
-    color: @green;
-    background-color: @surface;
-    border-radius: 12px;
-}
-
-/* Center Section (Performance) */
-#temperature, #cpu, #memory {
-    background-color: @surface;
-}
-
-#temperature { 
-    color: @cyan;
-    border-radius: 12px 0 0 12px; 
-}
-#cpu { color: @purple; }
-#memory { 
-    color: @yellow;
-    border-radius: 0 12px 12px 0; 
-}
-
-/* Right Section */
-#clock {
-    color: @orange;
-    background-color: @surface;
-    border-radius: 12px;
-}
-
-#battery { color: @green; }
-#battery.warning { color: @yellow; }
-#battery.critical { color: @red; }
-
-#network { color: @blue; }
-#network.disconnected { color: @red; }
-
-#custom-power {
-    color: @red;
-}
-
-/* Hover effects */
-#custom-media:hover,
-#clock:hover,
-#workspaces button:hover {
-    background-color: @selection;
-}
-
-tooltip {
-    background-color: @bg-opacity;
-    color: @fg;
-    border: 1px solid @blue;
-    border-radius: 8px;
-}
+/* Module Specific Colors */
+#custom-arch { color: var(--blue); padding: 0 10px; }
+#workspaces button.active { color: var(--magenta); }
+#battery.critical { color: var(--red); }
+#battery.charging { color: var(--green); }

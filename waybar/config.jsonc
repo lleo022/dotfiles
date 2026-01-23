@@ -1,46 +1,64 @@
 {
-    "layer": "top",
-    "position": "top",
-    "margin-top": 3,
-    "margin-left": 15,
-    "margin-right": 15,
-    "modules-left": [
-        "custom/icon",
-        "hyprland/workspaces",
-        "custom/media" // Added here
-    ],
-    "modules-center": [
-        "temperature",
-        "cpu",
-        "memory"
-    ],
-    "modules-right": [
-        "battery",
-        "backlight",
-        "wireplumber",
-        "custom/notification",
-        "hyprland/language",
-        "clock",
-        "network",
-        "custom/power",
-        "tray"
-    ],
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "margin": "0 0 0 0", // No side margins for full width
+  "spacing": 0,
+  "modules-left": [
+    "custom/arch", 
+    "hyprland/workspaces"],
+  "modules-center": [
+    "clock", 
+    "mpris"],
+  "modules-right": [
+    "tray",
+    "group/group-extras",
+    "privacy",
+    "network",
+    "bluetooth",
+    "pulseaudio#microphone",
+    "group/audio",
+    "group/brightness",
+    "battery",
+    "custom/notification"
+  ],
 
-    // Define the Media Module behavior
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" 
-    },
+  "include": ["~/.config/waybar/modules.jsonc"],
 
-    // Include sub-configs if you have them, otherwise you can define modules here
-    "include": [
-        "~/.config/waybar/modules.jsonc"
-    ]
+  "group/group-extras": {
+    "orientation": "inherit",
+    "drawer": { 
+        "transition-duration": 400, 
+        "children-class": "extras", 
+        "transition-left-to-right": false },
+    "modules": [
+        "custom/menu", 
+        "cpu", 
+        "memory", 
+        "temperature"]
+  },
+
+  "group/brightness": {
+    "orientation": "inherit",
+    "drawer": { 
+        "transition-duration": 400, 
+        "children-class": "brightness", 
+        "transition-left-to-right": false },
+    "modules": [
+        "backlight", 
+        "backlight/slider"]
+  },
+
+  "group/audio": {
+    "orientation": "inherit",
+    "drawer": { 
+        "transition-duration": 400, 
+        "children-class": "audio", 
+        "transition-left-to-right": false },
+    "modules": [
+        "pulseaudio", 
+        "pulseaudio/slider"]
+  }
 }
+

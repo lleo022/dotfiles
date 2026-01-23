@@ -1,0 +1,97 @@
+{
+  "custom/arch": {
+    "format": "󰣇 btw",
+    "on-click": "kitty",
+    "tooltip": false
+  },
+
+  "hyprland/workspaces": {
+    "format": "{id}", // Just shows numbers: 1, 2, 3
+    "on-click": "activate"
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "󰥔 {:%I:%M:%S %p}",
+    "format-alt": "󰃭 {:%a, %b %d}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+
+  "mpris": {
+    "format": "{player_icon} {title}",
+    "player-icons": { "default": "󰎆", "spotify": "", "firefox": "󰺕" },
+    "max-length": 30
+  },
+
+  "cpu": {
+    "interval": 2,
+    "format": " {usage}%",
+    "on-click": "kitty -e btm"
+  },
+
+  "memory": { "format": " {used:0.1f}G" },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": " {temperatureC}°C"
+  },
+
+  "custom/menu": { "format": "󰍜", "tooltip": false },
+
+  "privacy": {
+    "icon-spacing": 8, "icon-size": 14,
+    "modules": [{ "type": "screenshare", "tooltip": true }]
+  },
+
+  "network": {
+    "format-wifi": " ",
+    "format-ethernet": "󰈀 ",
+    "format-disconnected": "󰖪 ",
+    "tooltip-format": "{essid} ({signalStrength}%)"
+  },
+
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "󰂲",
+    "format-connected": "󰂱",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": "󰝟",
+    "format-icons": ["󰕿", "󰖀", "󰕾"],
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  },
+
+  "pulseaudio/slider": { "orientation": "horizontal" },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "󰍬",
+    "format-source-muted": "󰍭",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}",
+    "format-icons": ["󰃞", "󰃟", "󰃠"]
+  },
+
+  "backlight/slider": { "device": "intel_backlight", "orientation": "horizontal" },
+
+  "battery": {
+    "states": { "warning": 30, "critical": 15 },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+
+  "custom/notification": {
+    "format": "󰂚",
+    "on-click": "swaync-client -t -sw"
+  },
+
+  "tray": { "icon-size": 15, "spacing": 10 }
+}
