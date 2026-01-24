@@ -8,7 +8,7 @@
   "modules-left": [
     "custom/arch", 
     "hyprland/workspaces",
-    "mpris"
+    "group/media"
   ],
   "modules-center": [
     "clock"
@@ -25,7 +25,44 @@
     "custom/power"
   ],
 
-  // Group definitions
+  // --- Groups ---
+
+  "group/media": {
+    "orientation": "horizontal",
+    "modules": [
+      "mpris",
+      "custom/media-prev",
+      "custom/media-play",
+      "custom/media-next"
+    ]
+  },
+
+  "group/brightness": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "brightness",
+      "transition-left-to-right": true  // Slides to the right
+    },
+    "modules": [
+      "backlight",
+      "backlight/slider"
+    ]
+  },
+
+  "group/audio": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "audio",
+      "transition-left-to-right": true  // Slides to the right
+    },
+    "modules": [
+      "pulseaudio",
+      "pulseaudio/slider"
+    ]
+  },
+
   "group/group-extras": {
     "orientation": "inherit",
     "drawer": { 
@@ -41,35 +78,10 @@
     ]
   },
 
-  "group/brightness": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 300,
-      "children-class": "brightness",
-      "transition-left-to-right": false
-    },
-    "modules": [
-      "backlight",
-      "backlight/slider"
-    ]
-  },
+  // --- Modules ---
 
-  "group/audio": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 300,
-      "children-class": "audio",
-      "transition-left-to-right": false
-    },
-    "modules": [
-      "pulseaudio",
-      "pulseaudio/slider"
-    ]
-  },
-
-  // Module configurations
   "custom/arch": {
-    "format": "󰣇",
+    "format": " 󰣇 ",  // Added spaces for width
     "on-click": "kitty",
     "tooltip": false
   },
@@ -80,42 +92,60 @@
   },
 
   "clock": {
-    "interval": 1,
-    "format": "󰥔 {:%I:%M:%S %p}",
+    "interval": 60,
+    "format": "󰥔 {:%I:%M %p}", // Removed seconds
     "format-alt": "󰃭 {:%a, %b %d}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode"          : "month",
+      "mode-mon-col"  : 3,
+      "weeks-pos"     : "right",
+      "on-scroll"     : 1,
+      "format": {
+        "months":     "<span color='#ffead3'><b>{}</b></span>",
+        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    }
   },
 
+  // Matches screenshot: Text + Controls
   "mpris": {
-    "format": "{player_icon} {status_icon}",
-    "status-icons": {
-      "playing": "󰐊",
-      "paused": "󰏤",
-      "stopped": "󰓛"
-    },
+    "format": "{player_icon} {title} - {artist}",
+    "format-paused": "{player_icon} {title} - {artist}",
     "player-icons": {
       "default": "󰎆",
-      "spotify": "",
+      "spotify": "󰓇",
       "firefox": "󰈹"
     },
+    "ignored-players": ["vlc"],
+    "max-length": 45
+  },
+
+  "custom/media-prev": {
+    "format": "󰒮",
+    "on-click": "playerctl previous",
+    "tooltip": false
+  },
+  
+  "custom/media-play": {
+    "format": "{}",
+    "return-type": "json",
+    "max-length": 40,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"class\": \"{{status}}\"}' -F",
     "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl next",
-    "tooltip-format": "{title} • {artist}"
+    "format-icons": {
+      "Playing": "󰏤", // Show Pause icon when Playing
+      "Paused": "󰐊"  // Show Play icon when Paused
+    }
   },
 
-  "cpu": {
-    "interval": 2,
-    "format": " {usage}%",
-    "on-click": "kitty -e btop"
-  },
-
-  "memory": { 
-    "format": " {used:0.1f}G" 
-  },
-
-  "temperature": {
-    "critical-threshold": 80,
-    "format": " {temperatureC}°C"
+  "custom/media-next": {
+    "format": "󰒭",
+    "on-click": "playerctl next",
+    "tooltip": false
   },
 
   "custom/menu": { 
@@ -128,7 +158,6 @@
     "format-ethernet": "󰈀",
     "format-disconnected": "󰖪",
     "tooltip-format": "{essid}\n{ipaddr}/{cidr}",
-    "tooltip-format-disconnected": "Disconnected",
     "on-click": "kitty -e nmtui",
     "interval": 5
   },
@@ -138,9 +167,6 @@
     "format-off": "󰂲",
     "format-disabled": "󰂲",
     "format-connected": "󰂱 {num_connections}",
-    "tooltip-format": "{controller_alias}\t{controller_address}",
-    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "on-click": "blueman-manager",
     "interval": 30
   },
@@ -190,7 +216,7 @@
 
   "custom/notification": {
     "tooltip": false,
-    "format": "{icon}",
+    "format": " {icon} ", // Spaces for width
     "format-icons": {
       "notification": "󰂚",
       "none": "󰂛",
@@ -208,7 +234,7 @@
   },
 
   "custom/power": {
-    "format": "󰐥",
+    "format": " 󰐥 ", // Spaces for width
     "on-click": "wlogout",
     "tooltip": false
   },

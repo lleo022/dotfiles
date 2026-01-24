@@ -1,10 +1,7 @@
 @import url("colors.css");
 
-/* ======================= */
-/* Global Styles           */
-/* ======================= */
 * {
-  font-size: 13px; /* Scaled down from 14px (approx 93%) */
+  font-size: 13px;
   font-weight: bold;
   font-family: "JetBrainsMono Nerd Font", "Material Symbols Outlined";
   border: none;
@@ -16,9 +13,10 @@ window#waybar {
 }
 
 /* ======================= */
-/* Module Pills Base Style */
+/* Module Styling          */
 /* ======================= */
-/* Icon-only modules get minimal padding */
+
+/* Standard Pills */
 #custom-arch,
 #custom-menu,
 #custom-notification,
@@ -27,26 +25,28 @@ window#waybar {
 #pulseaudio {
   background: @surface;
   border-radius: 8px;
-  padding: 0 8px;
-  margin: 0 3px;
-  min-height: 26px;
+  /* Increased side padding for width */
+  padding: 0 14px; 
+  /* Vertical alignment fix: using margin to center vertically if needed */
+  margin: 2px 3px; 
+  min-height: 24px; 
   transition: all 0.2s ease;
 }
 
-/* Workspace buttons */
+/* Workspace Buttons - Narrower */
 #workspaces button {
   background: @surface;
   border-radius: 8px;
-  padding: 0 8px;
-  margin: 0 3px;
-  min-height: 26px;
-  min-width: 26px;
+  /* Reduced padding to make them narrower */
+  padding: 0 4px; 
+  margin: 2px 2px;
+  min-height: 24px;
+  min-width: 20px;
   transition: all 0.2s ease;
 }
 
-/* Modules with text/data get more padding */
+/* Modules with Text */
 #clock,
-#mpris,
 #tray,
 #cpu,
 #memory,
@@ -56,190 +56,74 @@ window#waybar {
 #battery {
   background: @surface;
   border-radius: 8px;
-  padding: 0 10px;
-  margin: 0 3px;
-  min-height: 26px;
+  padding: 0 12px;
+  margin: 2px 3px;
+  min-height: 24px;
   transition: all 0.2s ease;
 }
 
-/* Drawer group containers */
-.extras {
+/* ======================= */
+/* Media Group (Screenshot Match) */
+/* ======================= */
+/* The container for the media group */
+#media {
   background: @surface;
   border-radius: 8px;
+  margin: 2px 3px;
   padding: 0 6px;
-  margin: 0 2px;
-}
-
-/* Audio and brightness sliders in drawer */
-.audio,
-.brightness {
-  background: @surface;
-  border-radius: 8px;
-  padding: 0 8px;
-  margin: 0 2px;
-}
-
-/* Sliders get proper styling */
-#pulseaudio-slider,
-#backlight-slider {
-  background: @surface;
-  border-radius: 8px;
-  padding: 0 10px;
-  margin: 0 2px;
-  min-height: 26px;
-  min-width: 80px;
-}
-
-/* ======================= */
-/* Interactive States      */
-/* ======================= */
-#custom-arch:hover,
-#network:hover,
-#bluetooth:hover,
-#pulseaudio:hover,
-#custom-power:hover,
-#custom-notification:hover,
-#backlight:hover,
-#cpu:hover,
-#memory:hover,
-#temperature:hover,
-#custom-menu:hover {
-  opacity: 0.8;
-}
-
-#workspaces button:hover {
-  background: @selection;
-}
-
-/* ======================= */
-/* Left Section            */
-/* ======================= */
-#custom-arch {
-  color: @blue;
-  font-size: 15px;
-}
-
-#workspaces {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-}
-
-#workspaces button {
-  color: @cyan;
-}
-
-#workspaces button.active {
-  color: @magenta;
-  background: @selection;
-}
-
-#workspaces button.urgent {
-  color: @red;
-  background: @surface;
-  animation: blink 1s ease-in-out infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0.5;
-  }
 }
 
 #mpris {
+  background: transparent;
   color: @fg;
-  margin-left: 8px;
-}
-
-#mpris.playing {
-  color: @green;
-}
-
-#mpris.paused {
-  color: @yellow;
-}
-
-#mpris.stopped {
-  color: @red;
-}
-
-/* ======================= */
-/* Center Section          */
-/* ======================= */
-#clock {
-  color: @fg;
-  font-weight: 600;
-}
-
-/* ======================= */
-/* Right Section - Extras  */
-/* ======================= */
-#tray {
   padding: 0 8px;
+  margin: 0;
 }
 
-#custom-menu {
-  color: @fg;
+#custom-media-prev,
+#custom-media-play,
+#custom-media-next {
+  background: transparent;
+  color: @blue; /* Or your preferred accent */
+  padding: 0 6px;
+  margin: 0;
+  font-size: 14px;
 }
 
-#cpu {
-  color: @cyan;
+#custom-media-play {
+    color: @cyan;
 }
 
-#memory {
-  color: @purple;
-}
-
-#temperature {
-  color: @orange;
-}
-
-#temperature.critical {
-  color: @red;
-  animation: blink 1s ease-in-out infinite;
-}
+/* Hide media group when not playing */
+/* Note: This requires the waybar 'mpris' module to support empty states or a script */
+/* A simple way is relying on playerctl output being empty */
 
 /* ======================= */
-/* Network & Bluetooth     */
+/* Sliders & Drawers       */
 /* ======================= */
-#network {
-  color: @fg;
+
+/* The drawer background itself */
+.audio, .brightness {
+    background: @surface;
+    border-radius: 0 8px 8px 0; /* Connect to the button */
+    margin-left: -10px; /* Overlap slightly */
+    padding-left: 10px;
 }
 
-#network.disconnected {
-  color: @red;
+#pulseaudio-slider,
+#backlight-slider {
+  background: transparent;
+  padding: 0 10px;
+  margin: 0;
+  min-height: 24px;
+  min-width: 80px;
 }
 
-#bluetooth {
-  color: @fg;
-}
-
-#bluetooth.disabled,
-#bluetooth.off {
-  color: @blue;
-  opacity: 0.5;
-}
-
-#bluetooth.connected {
-  color: @blue;
-}
-
-/* ======================= */
-/* Audio Controls          */
-/* ======================= */
-#pulseaudio {
-  color: @fg;
-}
-
-#pulseaudio.muted {
-  color: @yellow;
-}
-
-/* Slider Customization */
 #pulseaudio-slider slider,
 #backlight-slider slider {
-  min-height: 0px;
-  min-width: 0px;
+  min-height: 10px;
+  min-width: 10px;
+  opacity: 0;
   background: transparent;
   box-shadow: none;
 }
@@ -252,82 +136,52 @@ window#waybar {
   background-color: @black;
 }
 
-#pulseaudio-slider highlight {
-  min-width: 6px;
-  min-height: 6px;
-  border-radius: 4px;
-  background: @cyan;
-}
-
-/* ======================= */
-/* Brightness Controls     */
-/* ======================= */
-#backlight {
-  color: @fg;
-}
-
+#pulseaudio-slider highlight,
 #backlight-slider highlight {
   min-width: 6px;
   min-height: 6px;
   border-radius: 4px;
-  background: @yellow;
 }
 
 /* ======================= */
-/* Battery                 */
+/* Specific Colors & States */
 /* ======================= */
-#battery {
-  color: @fg;
+
+#custom-arch { color: @blue; font-size: 16px; }
+
+/* Calendar Highlight */
+/* GTK CSS for the Calendar Popup */
+calendar {
+    background-color: @bg;
+    color: @fg;
+    border: 2px solid @selection;
+    border-radius: 12px;
 }
 
-#battery.charging,
-#battery.plugged {
-  color: @green;
+calendar:selected {
+    background-color: @cyan;
+    color: @bg;
+    font-weight: bold;
 }
 
-#battery.warning {
-  color: @yellow;
-}
+/* Volume States */
+#pulseaudio.muted { color: @red; font-size: 14px; }
+#pulseaudio { color: @cyan; }
 
-#battery.critical {
-  color: @red;
-  animation: blink 1s ease-in-out infinite;
-}
+/* Brightness States */
+#backlight { color: @yellow; }
 
-/* ======================= */
-/* Notifications & Power   */
-/* ======================= */
-#custom-notification {
-  color: @fg;
-}
+/* Workspaces */
+#workspaces button.active { color: @magenta; background: @selection; }
+#workspaces button.urgent { color: @red; animation: blink 1s infinite; }
 
-#custom-notification.notification {
-  color: @yellow;
-}
-
-#custom-notification.dnd-notification,
-#custom-notification.dnd-none,
-#custom-notification.inhibited-notification,
-#custom-notification.inhibited-none {
-  color: @red;
-}
-
-#custom-power {
-  color: @red;
-}
-
-/* ======================= */
-/* Tooltips                */
-/* ======================= */
-tooltip {
-  background: @bg;
-  border: 2px solid @selection;
-  border-radius: 8px;
-  color: @fg;
-  padding: 6px;
-}
-
-tooltip * {
-  color: @fg;
-  background: transparent;
+/* Hover Effects */
+#custom-arch:hover,
+#network:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#custom-power:hover,
+#backlight:hover {
+  background: @selection;
+  opacity: 1;
 }
