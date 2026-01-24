@@ -62,7 +62,6 @@
   },
 
   // --- Modules ---
-
   "custom/arch": {
     "format": "󰣇", 
     "on-click": "kitty",
@@ -97,9 +96,9 @@
     "format": "{player_icon} {title} - {artist}",
     "format-paused": "{player_icon} {title} - {artist}",
     "player-icons": {
-      "default": "󰎆",
-      "spotify": "󰓇",
-      "firefox": "󰈹"
+      "default": "󰎆 ",
+      "spotify": "󰓇 ",
+      "firefox": "󰈹 "
     },
     "ignored-players": ["vlc"],
     "max-length": 45
@@ -197,7 +196,7 @@
 
   "custom/notification": {
     "tooltip": false,
-    "format": " {icon} ", // Spaces for width
+    "format": "{icon}", // Spaces for width
     "format-icons": {
       "notification": "󰂚",
       "none": "󰂛",
@@ -215,7 +214,7 @@
   },
 
   "custom/power": {
-    "format": " 󰐥 ", 
+    "format": "󰐥", 
     "on-click": "wlogout",
     "tooltip": false
   }

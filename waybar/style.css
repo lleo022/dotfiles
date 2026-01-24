@@ -20,26 +20,32 @@ window#waybar {
 #custom-arch {
   background: @surface;
   border-radius: 8px;
-  padding: 0 7px; 
+  padding: 0px 8px 0px 4px; 
   margin: 2px 3px; 
   min-height: 24px; 
   transition: all 0.2s ease;
 }
 
 #custom-menu,
-#custom-notification,
-
-#backlight,
 #pulseaudio {
   background: @surface;
   border-radius: 8px;
-  /* Increased side padding for width */
   padding: 0 14px; 
-  /* Vertical alignment fix: using margin to center vertically if needed */
   margin: 2px 3px; 
   min-height: 24px; 
   transition: all 0.2s ease;
 }
+
+#backlight,
+#custom-notification {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0px 16px 0px 12px; 
+  margin: 2px 3px; 
+  min-height: 24px; 
+  transition: all 0.2s ease;
+}
+
 
 #custom-power {
   background: @surface;
