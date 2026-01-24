@@ -114,11 +114,11 @@
     "format": "{icon}",
     "return-type": "json",
     "max-length": 40,
-    "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"class\": \"{{status}}\"}' -F",
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"tooltip\": \"[{{ duration(position) }} / {{ duration(mpris:length) }}]\", \"class\": \"{{status}}\"}' -F",
     "on-click": "playerctl play-pause",
     "format-icons": {
-      "Playing": "󰏤", // Show Pause icon when Playing
-      "Paused": "󰐊"  // Show Play icon when Paused
+      "Playing": "󰏤", 
+      "Paused": "󰐊"
     }
   },
 
