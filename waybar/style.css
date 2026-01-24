@@ -276,7 +276,7 @@ group#brightness {
   margin: 0;
   padding: 0 8px;
   border-radius: 8px 0 0 8px;
-  min-width: auto;
+  min-width: 0px;
 }
 
 #backlight-slider highlight {
