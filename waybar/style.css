@@ -4,7 +4,7 @@
 /* Global Styles           */
 /* ======================= */
 * {
-  font-size: 13px; 
+  font-size: 13px; /* Scaled down from 14px (approx 93%) */
   font-weight: bold;
   font-family: "JetBrainsMono Nerd Font", "Material Symbols Outlined";
   border: none;
@@ -18,6 +18,7 @@ window#waybar {
 /* ======================= */
 /* Module Pills Base Style */
 /* ======================= */
+/* Icon-only modules get minimal padding */
 #custom-arch,
 #custom-menu,
 #custom-notification,
@@ -43,6 +44,7 @@ window#waybar {
   transition: all 0.2s ease;
 }
 
+/* Modules with text/data get more padding */
 #clock,
 #mpris,
 #tray,
@@ -61,22 +63,29 @@ window#waybar {
 }
 
 /* Drawer group containers */
-.extras,
-.audio,
-.brightness {
+.extras {
   background: @surface;
   border-radius: 8px;
   padding: 0 6px;
   margin: 0 2px;
 }
 
-/* Sliders - horizontal layout within audio/brightness groups */
+/* Audio and brightness sliders in drawer */
+.audio,
+.brightness {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0 8px;
+  margin: 0 2px;
+}
+
+/* Sliders get proper styling */
 #pulseaudio-slider,
 #backlight-slider {
-  background: transparent;
-  border-radius: 0;
-  padding: 0;
-  margin: 0 8px;
+  background: @surface;
+  border-radius: 8px;
+  padding: 0 10px;
+  margin: 0 2px;
   min-height: 26px;
   min-width: 80px;
 }
@@ -218,19 +227,8 @@ window#waybar {
 /* ======================= */
 /* Audio Controls          */
 /* ======================= */
-/* Audio group - horizontal layout */
-group#audio {
-  background: @surface;
-  border-radius: 8px;
-  padding: 0;
-  margin: 0 3px;
-}
-
 #pulseaudio {
-  margin: 0;
-  padding: 0 8px;
-  border-radius: 8px 0 0 8px;
-  min-width: 0px;
+  color: @fg;
 }
 
 #pulseaudio.muted {
@@ -264,19 +262,8 @@ group#audio {
 /* ======================= */
 /* Brightness Controls     */
 /* ======================= */
-/* Brightness group - horizontal layout */
-group#brightness {
-  background: @surface;
-  border-radius: 8px;
-  padding: 0;
-  margin: 0 3px;
-}
-
 #backlight {
-  margin: 0;
-  padding: 0 8px;
-  border-radius: 8px 0 0 8px;
-  min-width: 0px;
+  color: @fg;
 }
 
 #backlight-slider highlight {
@@ -319,7 +306,9 @@ group#brightness {
 }
 
 #custom-notification.dnd-notification,
-#custom-notification.dnd-none {
+#custom-notification.dnd-none,
+#custom-notification.inhibited-notification,
+#custom-notification.inhibited-none {
   color: @red;
 }
 

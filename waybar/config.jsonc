@@ -42,7 +42,12 @@
   },
 
   "group/brightness": {
-    "orientation": "horizontal",
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "brightness",
+      "transition-left-to-right": false
+    },
     "modules": [
       "backlight",
       "backlight/slider"
@@ -50,7 +55,12 @@
   },
 
   "group/audio": {
-    "orientation": "horizontal",
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "audio",
+      "transition-left-to-right": false
+    },
     "modules": [
       "pulseaudio",
       "pulseaudio/slider"
@@ -185,13 +195,15 @@
       "notification": "󰂚",
       "none": "󰂛",
       "dnd-notification": "󰂛",
-      "dnd-none": "󰂛"
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󰂛",
+      "inhibited-none": "󰂛"
     },
     "return-type": "json",
-    "exec-if": "which dunstctl",
-    "exec": "~/.config/waybar/scripts/dunst.sh",
-    "on-click": "dunstctl set-paused toggle",
-    "on-click-right": "dunstctl history-pop",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
     "escape": true
   },
 
