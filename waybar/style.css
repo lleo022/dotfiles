@@ -37,8 +37,7 @@ window#waybar {
 #battery,
 #custom-notification,
 #custom-power {
-  background: rgba(36, 40, 59, 0.85); /* Tokyo Night surface with transparency */
-  backdrop-filter: blur(10px);
+  background: var(--surface);
   border-radius: 10px;
   padding: 0 12px;
   margin: 0 4px;
@@ -50,8 +49,7 @@ window#waybar {
 .extras,
 .audio,
 .brightness {
-  background: rgba(36, 40, 59, 0.85);
-  backdrop-filter: blur(10px);
+  background: var(--surface);
   border-radius: 10px;
   padding: 0 8px;
   margin: 0 2px;
@@ -60,8 +58,7 @@ window#waybar {
 /* Sliders get their own styling */
 #pulseaudio-slider,
 #backlight-slider {
-  background: rgba(36, 40, 59, 0.85);
-  backdrop-filter: blur(10px);
+  background: var(--surface);
   border-radius: 10px;
   padding: 0 12px;
   margin: 0 4px;
@@ -87,7 +84,7 @@ window#waybar {
 }
 
 #workspaces button:hover {
-  background: rgba(51, 70, 124, 0.5);
+  background: var(--selection);
 }
 
 /* ======================= */
@@ -111,12 +108,12 @@ window#waybar {
 
 #workspaces button.active {
   color: var(--magenta);
-  background: rgba(187, 154, 247, 0.2);
+  background: var(--selection);
 }
 
 #workspaces button.urgent {
   color: var(--red);
-  background: rgba(247, 118, 142, 0.2);
+  background: var(--surface);
   animation: blink 1s ease-in-out infinite;
 }
 
@@ -184,7 +181,7 @@ window#waybar {
 /* Privacy & Network       */
 /* ======================= */
 #privacy {
-  background: rgba(224, 175, 104, 0.2);
+  background: var(--surface);
   padding: 0 12px;
 }
 
@@ -316,7 +313,7 @@ window#waybar {
 /* Tooltips                */
 /* ======================= */
 tooltip {
-  background: rgba(26, 27, 38, 0.95);
+  background: var(--bg);
   border: 2px solid var(--selection);
   border-radius: 10px;
   color: var(--fg);
