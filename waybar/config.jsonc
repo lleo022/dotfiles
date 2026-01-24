@@ -14,8 +14,6 @@
     "clock"
   ],
   "modules-right": [
-    "tray",
-    "group/group-extras",
     "network",
     "bluetooth",
     "group/audio",
@@ -42,7 +40,7 @@
     "drawer": {
       "transition-duration": 500,
       "children-class": "brightness",
-      "transition-left-to-right": true  // Slides to the right
+      "transition-left-to-right": true  
     },
     "modules": [
       "backlight",
@@ -55,7 +53,7 @@
     "drawer": {
       "transition-duration": 500,
       "children-class": "audio",
-      "transition-left-to-right": true  // Slides to the right
+      "transition-left-to-right": true  
     },
     "modules": [
       "pulseaudio",
@@ -63,25 +61,10 @@
     ]
   },
 
-  "group/group-extras": {
-    "orientation": "inherit",
-    "drawer": { 
-      "transition-duration": 400, 
-      "children-class": "extras", 
-      "transition-left-to-right": false 
-    },
-    "modules": [
-      "custom/menu", 
-      "cpu", 
-      "memory", 
-      "temperature"
-    ]
-  },
-
   // --- Modules ---
 
   "custom/arch": {
-    "format": " 󰣇 ",  // Added spaces for width
+    "format": "󰣇", 
     "on-click": "kitty",
     "tooltip": false
   },
@@ -93,18 +76,16 @@
 
   "clock": {
     "interval": 60,
-    "format": "󰥔 {:%I:%M %p}", // Removed seconds
+    "format": "󰥔 {:%I:%M %p}", 
     "format-alt": "󰃭 {:%a, %b %d}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode"          : "month",
       "mode-mon-col"  : 3,
-      "weeks-pos"     : "right",
       "on-scroll"     : 1,
       "format": {
         "months":     "<span color='#ffead3'><b>{}</b></span>",
         "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
         "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
         "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
@@ -131,7 +112,7 @@
   },
   
   "custom/media-play": {
-    "format": "{}",
+    "format": "{icon}",
     "return-type": "json",
     "max-length": 40,
     "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"class\": \"{{status}}\"}' -F",
@@ -234,13 +215,9 @@
   },
 
   "custom/power": {
-    "format": " 󰐥 ", // Spaces for width
+    "format": " 󰐥 ", 
     "on-click": "wlogout",
     "tooltip": false
-  },
-
-  "tray": { 
-    "icon-size": 14, 
-    "spacing": 8
   }
+
 }

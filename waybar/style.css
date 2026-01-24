@@ -17,10 +17,18 @@ window#waybar {
 /* ======================= */
 
 /* Standard Pills */
-#custom-arch,
+#custom-arch {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0 7px; 
+  margin: 2px 3px; 
+  min-height: 24px; 
+  transition: all 0.2s ease;
+}
+
 #custom-menu,
 #custom-notification,
-#custom-power,
+
 #backlight,
 #pulseaudio {
   background: @surface;
@@ -31,6 +39,16 @@ window#waybar {
   margin: 2px 3px; 
   min-height: 24px; 
   transition: all 0.2s ease;
+}
+
+#custom-power {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0 14px; 
+  margin: 2px 3px; 
+  min-height: 24px; 
+  transition: all 0.2s ease;
+  color: @red;
 }
 
 /* Workspace Buttons - Narrower */
@@ -47,7 +65,6 @@ window#waybar {
 
 /* Modules with Text */
 #clock,
-#tray,
 #cpu,
 #memory,
 #temperature,
@@ -180,8 +197,12 @@ calendar:selected {
 #network:hover,
 #bluetooth:hover,
 #pulseaudio:hover,
-#custom-power:hover,
 #backlight:hover {
   background: @selection;
   opacity: 1;
+}
+
+#custom-power:hover {
+    background: @red;
+    color: @bg;
 }
