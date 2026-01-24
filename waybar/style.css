@@ -4,12 +4,11 @@
 /* Global Styles           */
 /* ======================= */
 * {
-  font-size: 14px;
+  font-size: 13px; 
   font-weight: bold;
   font-family: "JetBrainsMono Nerd Font", "Material Symbols Outlined";
   border: none;
   box-shadow: none;
-  min-width: 28px;
 }
 
 window#waybar {
@@ -20,28 +19,44 @@ window#waybar {
 /* Module Pills Base Style */
 /* ======================= */
 #custom-arch,
-#workspaces button,
+#custom-menu,
+#custom-notification,
+#custom-power,
+#backlight,
+#pulseaudio {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0 8px;
+  margin: 0 3px;
+  min-height: 26px;
+  transition: all 0.2s ease;
+}
+
+/* Workspace buttons */
+#workspaces button {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0 8px;
+  margin: 0 3px;
+  min-height: 26px;
+  min-width: 26px;
+  transition: all 0.2s ease;
+}
+
 #clock,
 #mpris,
 #tray,
-#custom-menu,
 #cpu,
 #memory,
 #temperature,
-#privacy,
 #network,
 #bluetooth,
-#pulseaudio,
-#pulseaudio\#microphone,
-#backlight,
-#battery,
-#custom-notification,
-#custom-power {
+#battery {
   background: @surface;
-  border-radius: 10px;
-  padding: 0 12px;
-  margin: 0 4px;
-  min-height: 30px;
+  border-radius: 8px;
+  padding: 0 10px;
+  margin: 0 3px;
+  min-height: 26px;
   transition: all 0.2s ease;
 }
 
@@ -50,19 +65,20 @@ window#waybar {
 .audio,
 .brightness {
   background: @surface;
-  border-radius: 10px;
-  padding: 0 8px;
+  border-radius: 8px;
+  padding: 0 6px;
   margin: 0 2px;
 }
 
-/* Sliders get their own styling */
+/* Sliders - horizontal layout within audio/brightness groups */
 #pulseaudio-slider,
 #backlight-slider {
-  background: @surface;
-  border-radius: 10px;
-  padding: 0 12px;
-  margin: 0 4px;
-  min-height: 30px;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 8px;
+  min-height: 26px;
+  min-width: 80px;
 }
 
 /* ======================= */
@@ -74,7 +90,6 @@ window#waybar {
 #pulseaudio:hover,
 #custom-power:hover,
 #custom-notification:hover,
-#pulseaudio\#microphone:hover,
 #backlight:hover,
 #cpu:hover,
 #memory:hover,
@@ -92,7 +107,7 @@ window#waybar {
 /* ======================= */
 #custom-arch {
   color: @blue;
-  padding: 0 14px;
+  font-size: 15px;
 }
 
 #workspaces {
@@ -103,7 +118,6 @@ window#waybar {
 
 #workspaces button {
   color: @cyan;
-  padding: 0 10px;
 }
 
 #workspaces button.active {
@@ -123,18 +137,9 @@ window#waybar {
   }
 }
 
-/* ======================= */
-/* Center Section          */
-/* ======================= */
-#clock {
-  color: @fg;
-  padding: 0 14px;
-  font-weight: 600;
-}
-
 #mpris {
   color: @fg;
-  padding: 0 14px;
+  margin-left: 8px;
 }
 
 #mpris.playing {
@@ -150,10 +155,18 @@ window#waybar {
 }
 
 /* ======================= */
+/* Center Section          */
+/* ======================= */
+#clock {
+  color: @fg;
+  font-weight: 600;
+}
+
+/* ======================= */
 /* Right Section - Extras  */
 /* ======================= */
 #tray {
-  padding: 0 10px;
+  padding: 0 8px;
 }
 
 #custom-menu {
@@ -178,17 +191,8 @@ window#waybar {
 }
 
 /* ======================= */
-/* Privacy & Network       */
+/* Network & Bluetooth     */
 /* ======================= */
-#privacy {
-  background: @surface;
-  padding: 0 12px;
-}
-
-#privacy-item {
-  color: @yellow;
-}
-
 #network {
   color: @fg;
 }
@@ -201,7 +205,8 @@ window#waybar {
   color: @fg;
 }
 
-#bluetooth.disabled {
+#bluetooth.disabled,
+#bluetooth.off {
   color: @blue;
   opacity: 0.5;
 }
@@ -213,20 +218,23 @@ window#waybar {
 /* ======================= */
 /* Audio Controls          */
 /* ======================= */
+/* Audio group - horizontal layout */
+group#audio {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0;
+  margin: 0 3px;
+}
+
 #pulseaudio {
-  color: @fg;
+  margin: 0;
+  padding: 0 8px;
+  border-radius: 8px 0 0 8px;
+  min-width: auto;
 }
 
 #pulseaudio.muted {
   color: @yellow;
-}
-
-#pulseaudio\#microphone {
-  color: @fg;
-}
-
-#pulseaudio\#microphone.source-muted {
-  color: @red;
 }
 
 /* Slider Customization */
@@ -240,30 +248,41 @@ window#waybar {
 
 #pulseaudio-slider trough,
 #backlight-slider trough {
-  min-height: 8px;
-  min-width: 100px;
-  border-radius: 5px;
+  min-height: 6px;
+  min-width: 80px;
+  border-radius: 4px;
   background-color: @black;
 }
 
 #pulseaudio-slider highlight {
-  min-width: 8px;
-  min-height: 8px;
-  border-radius: 5px;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 4px;
   background: @cyan;
 }
 
 /* ======================= */
 /* Brightness Controls     */
 /* ======================= */
+/* Brightness group - horizontal layout */
+group#brightness {
+  background: @surface;
+  border-radius: 8px;
+  padding: 0;
+  margin: 0 3px;
+}
+
 #backlight {
-  color: @fg;
+  margin: 0;
+  padding: 0 8px;
+  border-radius: 8px 0 0 8px;
+  min-width: auto;
 }
 
 #backlight-slider highlight {
-  min-width: 8px;
-  min-height: 8px;
-  border-radius: 5px;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 4px;
   background: @yellow;
 }
 
@@ -300,13 +319,12 @@ window#waybar {
 }
 
 #custom-notification.dnd-notification,
-#custom-notification.inhibited-notification {
+#custom-notification.dnd-none {
   color: @red;
 }
 
 #custom-power {
   color: @red;
-  padding: 0 14px;
 }
 
 /* ======================= */
@@ -315,9 +333,9 @@ window#waybar {
 tooltip {
   background: @bg;
   border: 2px solid @selection;
-  border-radius: 10px;
+  border-radius: 8px;
   color: @fg;
-  padding: 8px;
+  padding: 6px;
 }
 
 tooltip * {
