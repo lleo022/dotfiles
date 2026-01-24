@@ -1,42 +1,329 @@
 @import url("colors.css");
 
+/* ======================= */
+/* Global Styles           */
+/* ======================= */
 * {
-    font-size: 14px;
-    font-weight: bold;
-    font-family: "JetBrainsMono Nerd Font", "Material Symbols Outlined";
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "JetBrainsMono Nerd Font", "Material Symbols Outlined";
+  border: none;
+  box-shadow: none;
+  min-width: 28px;
 }
 
-#waybar {
-    background-color: var(--bg);
-    color: var(--fg);
-    border-bottom: 2px solid var(--selection); /* Subtle separator from windows */
-    /* border-radius: 0; Full width bars usually don't have rounded corners */
+window#waybar {
+  background: transparent;
 }
 
-/* Internal Pill Styling */
-/* We keep these rounded so the individual modules still look clean */
-#workspaces, .extras, .audio, .brightness, #clock, #mpris {
-    background-color: var(--surface);
-    border-radius: 10px;
-    margin: 4px 2px;
-    padding: 0 8px;
+/* ======================= */
+/* Module Pills Base Style */
+/* ======================= */
+#custom-arch,
+#workspaces button,
+#clock,
+#mpris,
+#tray,
+#custom-menu,
+#cpu,
+#memory,
+#temperature,
+#privacy,
+#network,
+#bluetooth,
+#pulseaudio,
+#pulseaudio\#microphone,
+#backlight,
+#battery,
+#custom-notification,
+#custom-power {
+  background: rgba(36, 40, 59, 0.85); /* Tokyo Night surface with transparency */
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 0 12px;
+  margin: 0 4px;
+  min-height: 30px;
+  transition: all 0.2s ease;
+}
+
+/* Drawer group containers */
+.extras,
+.audio,
+.brightness {
+  background: rgba(36, 40, 59, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 0 8px;
+  margin: 0 2px;
+}
+
+/* Sliders get their own styling */
+#pulseaudio-slider,
+#backlight-slider {
+  background: rgba(36, 40, 59, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 0 12px;
+  margin: 0 4px;
+  min-height: 30px;
+}
+
+/* ======================= */
+/* Interactive States      */
+/* ======================= */
+#custom-arch:hover,
+#network:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#custom-power:hover,
+#custom-notification:hover,
+#pulseaudio\#microphone:hover,
+#backlight:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#custom-menu:hover {
+  opacity: 0.8;
+}
+
+#workspaces button:hover {
+  background: rgba(51, 70, 124, 0.5);
+}
+
+/* ======================= */
+/* Left Section            */
+/* ======================= */
+#custom-arch {
+  color: var(--blue);
+  padding: 0 14px;
+}
+
+#workspaces {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+#workspaces button {
+  color: var(--cyan);
+  padding: 0 10px;
+}
+
+#workspaces button.active {
+  color: var(--magenta);
+  background: rgba(187, 154, 247, 0.2);
+}
+
+#workspaces button.urgent {
+  color: var(--red);
+  background: rgba(247, 118, 142, 0.2);
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ======================= */
+/* Center Section          */
+/* ======================= */
+#clock {
+  color: var(--fg);
+  padding: 0 14px;
+  font-weight: 600;
+}
+
+#mpris {
+  color: var(--fg);
+  padding: 0 14px;
+}
+
+#mpris.playing {
+  color: var(--green);
+}
+
+#mpris.paused {
+  color: var(--yellow);
+}
+
+#mpris.stopped {
+  color: var(--red);
+}
+
+/* ======================= */
+/* Right Section - Extras  */
+/* ======================= */
+#tray {
+  padding: 0 10px;
+}
+
+#custom-menu {
+  color: var(--fg);
+}
+
+#cpu {
+  color: var(--cyan);
+}
+
+#memory {
+  color: var(--purple);
+}
+
+#temperature {
+  color: var(--orange);
+}
+
+#temperature.critical {
+  color: var(--red);
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* ======================= */
+/* Privacy & Network       */
+/* ======================= */
+#privacy {
+  background: rgba(224, 175, 104, 0.2);
+  padding: 0 12px;
+}
+
+#privacy-item {
+  color: var(--yellow);
+}
+
+#network {
+  color: var(--fg);
+}
+
+#network.disconnected {
+  color: var(--red);
+}
+
+#bluetooth {
+  color: var(--fg);
+}
+
+#bluetooth.disabled {
+  color: var(--blue);
+  opacity: 0.5;
+}
+
+#bluetooth.connected {
+  color: var(--blue);
+}
+
+/* ======================= */
+/* Audio Controls          */
+/* ======================= */
+#pulseaudio {
+  color: var(--fg);
+}
+
+#pulseaudio.muted {
+  color: var(--yellow);
+}
+
+#pulseaudio\#microphone {
+  color: var(--fg);
+}
+
+#pulseaudio\#microphone.source-muted {
+  color: var(--red);
 }
 
 /* Slider Customization */
-#backlight-slider trough, #pulseaudio-slider trough {
-    min-width: 80px;
-    min-height: 8px;
-    background-color: var(--black);
-    border-radius: 5px;
+#pulseaudio-slider slider,
+#backlight-slider slider {
+  min-height: 0px;
+  min-width: 0px;
+  background: transparent;
+  box-shadow: none;
 }
 
-#backlight-slider highlight, #pulseaudio-slider highlight {
-    background-color: var(--blue);
-    border-radius: 5px;
+#pulseaudio-slider trough,
+#backlight-slider trough {
+  min-height: 8px;
+  min-width: 100px;
+  border-radius: 5px;
+  background-color: var(--black);
 }
 
-/* Module Specific Colors */
-#custom-arch { color: var(--blue); padding: 0 10px; }
-#workspaces button.active { color: var(--magenta); }
-#battery.critical { color: var(--red); }
-#battery.charging { color: var(--green); }
+#pulseaudio-slider highlight {
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 5px;
+  background: var(--cyan);
+}
+
+/* ======================= */
+/* Brightness Controls     */
+/* ======================= */
+#backlight {
+  color: var(--fg);
+}
+
+#backlight-slider highlight {
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 5px;
+  background: var(--yellow);
+}
+
+/* ======================= */
+/* Battery                 */
+/* ======================= */
+#battery {
+  color: var(--fg);
+}
+
+#battery.charging,
+#battery.plugged {
+  color: var(--green);
+}
+
+#battery.warning {
+  color: var(--yellow);
+}
+
+#battery.critical {
+  color: var(--red);
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* ======================= */
+/* Notifications & Power   */
+/* ======================= */
+#custom-notification {
+  color: var(--fg);
+}
+
+#custom-notification.notification {
+  color: var(--yellow);
+}
+
+#custom-notification.dnd-notification,
+#custom-notification.inhibited-notification {
+  color: var(--red);
+}
+
+#custom-power {
+  color: var(--red);
+  padding: 0 14px;
+}
+
+/* ======================= */
+/* Tooltips                */
+/* ======================= */
+tooltip {
+  background: rgba(26, 27, 38, 0.95);
+  border: 2px solid var(--selection);
+  border-radius: 10px;
+  color: var(--fg);
+  padding: 8px;
+}
+
+tooltip * {
+  color: var(--fg);
+  background: transparent;
+}

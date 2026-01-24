@@ -3,14 +3,16 @@
   "layer": "top",
   "position": "top",
   "height": 34,
-  "margin": "0 0 0 0", // No side margins for full width
+  "margin": "0 0 0 0",
   "spacing": 0,
   "modules-left": [
     "custom/arch", 
-    "hyprland/workspaces"],
+    "hyprland/workspaces"
+  ],
   "modules-center": [
     "clock", 
-    "mpris"],
+    "mpris"
+  ],
   "modules-right": [
     "tray",
     "group/group-extras",
@@ -21,44 +23,180 @@
     "group/audio",
     "group/brightness",
     "battery",
-    "custom/notification"
+    "custom/notification",
+    "custom/power"
   ],
 
-  "include": ["~/.config/waybar/modules.jsonc"],
-
+  // Group definitions
   "group/group-extras": {
     "orientation": "inherit",
     "drawer": { 
-        "transition-duration": 400, 
-        "children-class": "extras", 
-        "transition-left-to-right": false },
+      "transition-duration": 400, 
+      "children-class": "extras", 
+      "transition-left-to-right": false 
+    },
     "modules": [
-        "custom/menu", 
-        "cpu", 
-        "memory", 
-        "temperature"]
+      "custom/menu", 
+      "cpu", 
+      "memory", 
+      "temperature"
+    ]
   },
 
   "group/brightness": {
     "orientation": "inherit",
     "drawer": { 
-        "transition-duration": 400, 
-        "children-class": "brightness", 
-        "transition-left-to-right": false },
+      "transition-duration": 400, 
+      "children-class": "brightness", 
+      "transition-left-to-right": false 
+    },
     "modules": [
-        "backlight", 
-        "backlight/slider"]
+      "backlight", 
+      "backlight/slider"
+    ]
   },
 
   "group/audio": {
     "orientation": "inherit",
     "drawer": { 
-        "transition-duration": 400, 
-        "children-class": "audio", 
-        "transition-left-to-right": false },
+      "transition-duration": 400, 
+      "children-class": "audio", 
+      "transition-left-to-right": false 
+    },
     "modules": [
-        "pulseaudio", 
-        "pulseaudio/slider"]
+      "pulseaudio", 
+      "pulseaudio/slider"
+    ]
+  },
+
+  // Module configurations
+  "custom/arch": {
+    "format": "󰣇",
+    "on-click": "kitty",
+    "tooltip": false
+  },
+
+  "hyprland/workspaces": {
+    "format": "{id}",
+    "on-click": "activate"
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "󰥔 {:%I:%M:%S %p}",
+    "format-alt": "󰃭 {:%a, %b %d}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+
+  "mpris": {
+    "format": "{player_icon} {status_icon}",
+    "status-icons": {
+        "playing": "󰐊",
+        "paused": "󰏤",
+        "stopped": "󰓛"
+    },
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "tooltip-format": "{title} • {artist}"
+  },
+
+  "cpu": {
+    "interval": 2,
+    "format": " {usage}%",
+    "on-click": "kitty -e btm"
+  },
+
+  "memory": { 
+    "format": " {used:0.1f}G" 
+  },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": " {temperatureC}°C"
+  },
+
+  "custom/menu": { 
+    "format": "󰍜", 
+    "tooltip": false 
+  },
+
+  "privacy": {
+    "icon-spacing": 8, 
+    "icon-size": 14,
+    "modules": [
+      { 
+        "type": "screenshare", 
+        "tooltip": true 
+      }
+    ]
+  },
+
+  "network": {
+    "format-wifi": " ",
+    "format-ethernet": "󰈀 ",
+    "format-disconnected": "󰖪 ",
+    "tooltip-format": "{essid} ({signalStrength}%)"
+  },
+
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "󰂲",
+    "format-connected": "󰂱",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": "󰝟",
+    "format-icons": ["󰕿", "󰖀", "󰕾"],
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  },
+
+  "pulseaudio/slider": { 
+    "orientation": "horizontal" 
+  },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "󰍬",
+    "format-source-muted": "󰍭",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}",
+    "format-icons": ["󰃞", "󰃟", "󰃠"]
+  },
+
+  "backlight/slider": { 
+    "device": "intel_backlight", 
+    "orientation": "horizontal" 
+  },
+
+  "battery": {
+    "states": {
+        "warning": 20,
+        "critical": 10
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%"
+  },
+
+  "custom/notification": {
+    "format": "󰂚",
+    "on-click": "swaync-client -t -sw"
+  },
+
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "wlogout",
+    "tooltip": false
+  },
+
+  "tray": { 
+    "icon-size": 15, 
+    "spacing": 10 
   }
 }
-
