@@ -37,7 +37,7 @@ window#waybar {
 #battery,
 #custom-notification,
 #custom-power {
-  background: var(--surface);
+  background: @surface;
   border-radius: 10px;
   padding: 0 12px;
   margin: 0 4px;
@@ -49,7 +49,7 @@ window#waybar {
 .extras,
 .audio,
 .brightness {
-  background: var(--surface);
+  background: @surface;
   border-radius: 10px;
   padding: 0 8px;
   margin: 0 2px;
@@ -58,7 +58,7 @@ window#waybar {
 /* Sliders get their own styling */
 #pulseaudio-slider,
 #backlight-slider {
-  background: var(--surface);
+  background: @surface;
   border-radius: 10px;
   padding: 0 12px;
   margin: 0 4px;
@@ -84,14 +84,14 @@ window#waybar {
 }
 
 #workspaces button:hover {
-  background: var(--selection);
+  background: @selection;
 }
 
 /* ======================= */
 /* Left Section            */
 /* ======================= */
 #custom-arch {
-  color: var(--blue);
+  color: @blue;
   padding: 0 14px;
 }
 
@@ -102,18 +102,18 @@ window#waybar {
 }
 
 #workspaces button {
-  color: var(--cyan);
+  color: @cyan;
   padding: 0 10px;
 }
 
 #workspaces button.active {
-  color: var(--magenta);
-  background: var(--selection);
+  color: @magenta;
+  background: @selection;
 }
 
 #workspaces button.urgent {
-  color: var(--red);
-  background: var(--surface);
+  color: @red;
+  background: @surface;
   animation: blink 1s ease-in-out infinite;
 }
 
@@ -127,26 +127,26 @@ window#waybar {
 /* Center Section          */
 /* ======================= */
 #clock {
-  color: var(--fg);
+  color: @fg;
   padding: 0 14px;
   font-weight: 600;
 }
 
 #mpris {
-  color: var(--fg);
+  color: @fg;
   padding: 0 14px;
 }
 
 #mpris.playing {
-  color: var(--green);
+  color: @green;
 }
 
 #mpris.paused {
-  color: var(--yellow);
+  color: @yellow;
 }
 
 #mpris.stopped {
-  color: var(--red);
+  color: @red;
 }
 
 /* ======================= */
@@ -157,23 +157,23 @@ window#waybar {
 }
 
 #custom-menu {
-  color: var(--fg);
+  color: @fg;
 }
 
 #cpu {
-  color: var(--cyan);
+  color: @cyan;
 }
 
 #memory {
-  color: var(--purple);
+  color: @purple;
 }
 
 #temperature {
-  color: var(--orange);
+  color: @orange;
 }
 
 #temperature.critical {
-  color: var(--red);
+  color: @red;
   animation: blink 1s ease-in-out infinite;
 }
 
@@ -181,52 +181,52 @@ window#waybar {
 /* Privacy & Network       */
 /* ======================= */
 #privacy {
-  background: var(--surface);
+  background: @surface;
   padding: 0 12px;
 }
 
 #privacy-item {
-  color: var(--yellow);
+  color: @yellow;
 }
 
 #network {
-  color: var(--fg);
+  color: @fg;
 }
 
 #network.disconnected {
-  color: var(--red);
+  color: @red;
 }
 
 #bluetooth {
-  color: var(--fg);
+  color: @fg;
 }
 
 #bluetooth.disabled {
-  color: var(--blue);
+  color: @blue;
   opacity: 0.5;
 }
 
 #bluetooth.connected {
-  color: var(--blue);
+  color: @blue;
 }
 
 /* ======================= */
 /* Audio Controls          */
 /* ======================= */
 #pulseaudio {
-  color: var(--fg);
+  color: @fg;
 }
 
 #pulseaudio.muted {
-  color: var(--yellow);
+  color: @yellow;
 }
 
 #pulseaudio\#microphone {
-  color: var(--fg);
+  color: @fg;
 }
 
 #pulseaudio\#microphone.source-muted {
-  color: var(--red);
+  color: @red;
 }
 
 /* Slider Customization */
@@ -243,48 +243,48 @@ window#waybar {
   min-height: 8px;
   min-width: 100px;
   border-radius: 5px;
-  background-color: var(--black);
+  background-color: @black;
 }
 
 #pulseaudio-slider highlight {
   min-width: 8px;
   min-height: 8px;
   border-radius: 5px;
-  background: var(--cyan);
+  background: @cyan;
 }
 
 /* ======================= */
 /* Brightness Controls     */
 /* ======================= */
 #backlight {
-  color: var(--fg);
+  color: @fg;
 }
 
 #backlight-slider highlight {
   min-width: 8px;
   min-height: 8px;
   border-radius: 5px;
-  background: var(--yellow);
+  background: @yellow;
 }
 
 /* ======================= */
 /* Battery                 */
 /* ======================= */
 #battery {
-  color: var(--fg);
+  color: @fg;
 }
 
 #battery.charging,
 #battery.plugged {
-  color: var(--green);
+  color: @green;
 }
 
 #battery.warning {
-  color: var(--yellow);
+  color: @yellow;
 }
 
 #battery.critical {
-  color: var(--red);
+  color: @red;
   animation: blink 1s ease-in-out infinite;
 }
 
@@ -292,20 +292,20 @@ window#waybar {
 /* Notifications & Power   */
 /* ======================= */
 #custom-notification {
-  color: var(--fg);
+  color: @fg;
 }
 
 #custom-notification.notification {
-  color: var(--yellow);
+  color: @yellow;
 }
 
 #custom-notification.dnd-notification,
 #custom-notification.inhibited-notification {
-  color: var(--red);
+  color: @red;
 }
 
 #custom-power {
-  color: var(--red);
+  color: @red;
   padding: 0 14px;
 }
 
@@ -313,14 +313,14 @@ window#waybar {
 /* Tooltips                */
 /* ======================= */
 tooltip {
-  background: var(--bg);
-  border: 2px solid var(--selection);
+  background: @bg;
+  border: 2px solid @selection;
   border-radius: 10px;
-  color: var(--fg);
+  color: @fg;
   padding: 8px;
 }
 
 tooltip * {
-  color: var(--fg);
+  color: @fg;
   background: transparent;
 }
