@@ -57,11 +57,10 @@ window#waybar {
   color: @red;
 }
 
-/* Workspace Buttons - Narrower */
+/* Workspace Buttons */
 #workspaces button {
   background: @surface;
   border-radius: 8px;
-  /* Reduced padding to make them narrower */
   padding: 0 4px; 
   margin: 2px 2px;
   min-height: 24px;
@@ -107,7 +106,7 @@ window#waybar {
 #custom-media-play,
 #custom-media-next {
   background: transparent;
-  color: @blue; /* Or your preferred accent */
+  color: @blue; 
   padding: 0 6px;
   margin: 0;
   font-size: 14px;
@@ -139,7 +138,6 @@ window#waybar {
 /* ======================= */
 /* Sliders & Drawers       */
 /* ======================= */
-
 /* The drawer background itself */
 .audio, .brightness {
     background: @surface;

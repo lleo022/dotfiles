@@ -91,6 +91,7 @@
     }
   },
 
+  // Matches screenshot: Text + Controls
   "mpris": {
     "format": "{player_icon} {title} - {artist}",
     "format-paused": "{player_icon} {title} - {artist}",
@@ -100,7 +101,8 @@
       "firefox": "󰈹 "
     },
     "ignored-players": ["vlc"],
-    "max-length": 45
+    "max-length": 45,
+    "tooltip-format": "{position}/{length}"
   },
 
   "custom/media-prev": {
@@ -115,12 +117,13 @@
     "format": "{icon}",
     "return-type": "json",
     "max-length": 40,
-    "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"tooltip\": \"[{{ duration(position) }} / {{ duration(mpris:length) }}\", \"class\": \"{{status}}\"}' -F",
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
     "on-click": "playerctl play-pause",
     "format-icons": {
       "Playing": "󰏤", 
       "Paused": "󰐊"
-    }
+    },
+    "tooltip": false
   },
 
   "custom/media-next": {
@@ -132,7 +135,7 @@
   },
 
   "custom/menu": { 
-    "format": "󰍜", 
+    "format": "󰀻", 
     "tooltip": false 
   },
 
@@ -156,7 +159,7 @@
 
   "pulseaudio": {
     "format": "{icon}",
-    "format-muted": "󰝟",
+    "format-muted": "󰟝",
     "format-icons": {
       "default": ["󰕿", "󰖀", "󰕾"]
     },
