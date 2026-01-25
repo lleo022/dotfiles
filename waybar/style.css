@@ -106,7 +106,7 @@ window#waybar {
 #custom-media-play,
 #custom-media-next {
   background: transparent;
-  color: @blue; 
+  color: @blue;
   padding: 0 6px;
   margin: 0;
   font-size: 14px;
@@ -119,16 +119,6 @@ window#waybar {
 /* Hide media controls when stopped */
 #custom-media-prev.stopped,
 #custom-media-next.stopped {
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-  opacity: 0;
-}
-
-/* Hide the entire media group when no player is active */
-#mpris:empty ~ #custom-media-prev,
-#mpris:empty ~ #custom-media-play,
-#mpris:empty ~ #custom-media-next {
   padding: 0;
   margin: 0;
   min-width: 0;
