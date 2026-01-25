@@ -91,7 +91,6 @@
     }
   },
 
-  // Matches screenshot: Text + Controls
   "mpris": {
     "format": "{player_icon} {title} - {artist}",
     "format-paused": "{player_icon} {title} - {artist}",
@@ -103,7 +102,12 @@
     },
     "ignored-players": ["vlc"],
     "max-length": 45,
-    "tooltip-format": "{position}/{length}"
+    "tooltip-format": "{position}/{length}",
+    "status-icons": {
+      "playing": "󰐊",
+      "paused": "󰏤",
+      "stopped": ""
+    }
   },
 
   "custom/media-prev": {
@@ -160,7 +164,7 @@
 
   "pulseaudio": {
     "format": "{icon}",
-    "format-muted": "󰟝",
+    "format-muted": "󰟁",
     "format-icons": {
       "default": ["󰕿", "󰖀", "󰕾"]
     },
@@ -203,7 +207,7 @@
 
   "custom/notification": {
     "tooltip": false,
-    "format": "{icon}", // Spaces for width
+    "format": "{icon}",
     "format-icons": {
       "notification": "󰂚",
       "none": "󰂛",
