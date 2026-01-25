@@ -25,8 +25,6 @@
 
   // --- Groups ---
 
-  // Media group replaced with single custom module
-
   "group/brightness": {
     "orientation": "horizontal",
     "drawer": {
@@ -54,6 +52,7 @@
   },
 
   // --- Modules ---
+  
   "custom/nowplaying": {
     "exec": "~/.config/waybar/scripts/now-playing.sh",
     "format": "󰎆 {text}",
@@ -96,61 +95,13 @@
     }
   },
 
-  "mpris": {
-    "format": "{player_icon} {title} - {artist}",
-    "format-paused": "{player_icon} {title} - {artist}",
-    "format-stopped": "",
-    "player-icons": {
-      "default": "󰎆 ",
-      "spotify": "󰓇 ",
-      "firefox": "󰈹 "
-    },
-    "ignored-players": ["vlc"],
-    "max-length": 45,
-    "tooltip-format": "{position}/{length}",
-    "status-icons": {
-      "playing": "󰐊",
-      "paused": "󰏤",
-      "stopped": ""
-    }
-  },
-
-  "custom/media-prev": {
-    "format": "{}",
-    "return-type": "json",
-    "exec": "playerctl -a metadata --format '{\"text\": \"󰒮\", \"class\": \"{{status}}\"}' -F 2>/dev/null || echo '{\"text\": \"\", \"class\": \"stopped\"}'",
-    "on-click": "playerctl previous",
-    "tooltip": false
-  },
-  
-  "custom/media-play": {
-    "format": "{icon}",
-    "return-type": "json",
-    "max-length": 40,
-    "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-    "on-click": "playerctl play-pause",
-    "format-icons": {
-      "Playing": "󰏤", 
-      "Paused": "󰐊"
-    },
-    "tooltip": false
-  },
-
-  "custom/media-next": {
-    "format": "{}",
-    "return-type": "json",
-    "exec": "playerctl -a metadata --format '{\"text\": \"󰒭\", \"class\": \"{{status}}\"}' -F 2>/dev/null || echo '{\"text\": \"\", \"class\": \"stopped\"}'",
-    "on-click": "playerctl next",
-    "tooltip": false
-  },
-
   "custom/menu": { 
     "format": "󰀻", 
     "tooltip": false 
   },
 
   "network": {
-    "format-wifi": "󰖩",
+    "format-wifi": "󰖩 {signalStrength}%",
     "format-ethernet": "󰈀",
     "format-disconnected": "󰖪",
     "tooltip-format": "{essid}\n{ipaddr}/{cidr}",
@@ -169,7 +120,7 @@
 
   "pulseaudio": {
     "format": "{icon}",
-    "format-muted": "󰝟",
+    "format-muted": "󰟁",
     "format-icons": {
       "default": ["󰕿", "󰖀", "󰕾"]
     },

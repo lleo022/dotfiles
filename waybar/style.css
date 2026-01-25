@@ -85,8 +85,9 @@ window#waybar {
 }
 
 /* ======================= */
-/* Media Module - Simple Custom */
+/* Media Module            */
 /* ======================= */
+
 #custom-nowplaying {
   background: @surface;
   border-radius: 8px;
