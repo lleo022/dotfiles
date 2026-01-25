@@ -8,7 +8,7 @@
   "modules-left": [
     "custom/arch", 
     "hyprland/workspaces",
-    "group/media"
+    "custom/nowplaying"
   ],
   "modules-center": [
     "clock"
@@ -25,15 +25,7 @@
 
   // --- Groups ---
 
-  "group/media": {
-    "orientation": "horizontal",
-    "modules": [
-      "mpris",
-      "custom/media-prev",
-      "custom/media-play",
-      "custom/media-next"
-    ]
-  },
+  // Media group replaced with single custom module
 
   "group/brightness": {
     "orientation": "horizontal",
@@ -62,6 +54,19 @@
   },
 
   // --- Modules ---
+  "custom/nowplaying": {
+    "exec": "~/.config/waybar/scripts/now-playing.sh",
+    "format": "󰎆 {text}",
+    "return-type": "json",
+    "interval": 2,
+    "escape": true,
+    "hide-empty-text": true,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous",
+    "tooltip": true
+  },
+
   "custom/arch": {
     "format": "󰣇", 
     "on-click": "kitty",

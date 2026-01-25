@@ -85,59 +85,24 @@ window#waybar {
 }
 
 /* ======================= */
-/* Media Group */
+/* Media Module - Simple Custom */
 /* ======================= */
-/* The container for the media group */
-#media {
+#custom-nowplaying {
   background: @surface;
   border-radius: 8px;
   margin: 2px 3px;
-  padding: 0 6px;
+  padding: 0 12px;
+  min-height: 24px;
   transition: all 0.3s ease;
-}
-
-#mpris {
-  background: transparent;
-  color: @fg;
-  padding: 0 8px;
-  margin: 0;
-  transition: all 0.3s ease;
-}
-
-#custom-media-prev,
-#custom-media-play,
-#custom-media-next {
-  background: transparent;
-  color: @blue;
-  padding: 0 6px;
-  margin: 0;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-#custom-media-play {
   color: @cyan;
 }
 
-/* Hide media controls when stopped */
-#custom-media-prev.stopped,
-#custom-media-play.stopped,
-#custom-media-next.stopped {
-  padding: 0;
-  margin: 0;
-  min-width: 0;
-  min-height: 0;
-  opacity: 0;
+#custom-nowplaying.paused {
+  color: @yellow;
 }
 
-/* Hide the entire media group when stopped */
-#media.stopped {
-  background: transparent;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-  min-height: 0;
-  opacity: 0;
+#custom-nowplaying:hover {
+  background: @selection;
 }
 
 /* ======================= */
