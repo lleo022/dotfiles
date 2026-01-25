@@ -1,8 +1,12 @@
 @import url("colors.css");
 
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
 :root {
-  --cc-bg: rgba(0, 0, 0, 0.85);
-  --noti-border-color: rgba(255, 255, 255, 0.15);
+  --cc-bg: rgba(0, 0, 0, 1.0);
+  --noti-border-color: rgba(255, 255, 255, 1.0);
   --noti-bg: 48, 48, 48;
   --noti-bg-alpha: 0.8;
   --noti-bg-darker: rgb(38, 38, 38);
@@ -324,6 +328,7 @@ notificationwindow, blankwindow, blankwindow {
   background: var(--cc-bg);
   color: var(--text-color);
   border-radius: var(--border-radius);
+  border: 2px solid rgba(255, 255, 255, 1.0);
 }
 
 .control-center .control-center-list-placeholder {
