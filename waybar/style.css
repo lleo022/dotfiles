@@ -93,6 +93,15 @@ window#waybar {
   border-radius: 8px;
   margin: 2px 3px;
   padding: 0 6px;
+  transition: all 0.3s ease;
+}
+
+/* Hide the entire media group pill when all controls are stopped */
+#media:has(#custom-media-prev.stopped):has(#custom-media-next.stopped) {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
 }
 
 #mpris {
@@ -100,6 +109,15 @@ window#waybar {
   color: @fg;
   padding: 0 8px;
   margin: 0;
+  transition: all 0.3s ease;
+}
+
+/* Hide mpris when stopped */
+#media:has(#custom-media-prev.stopped) #mpris {
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  opacity: 0;
 }
 
 #custom-media-prev,
@@ -110,6 +128,7 @@ window#waybar {
   padding: 0 6px;
   margin: 0;
   font-size: 14px;
+  transition: all 0.3s ease;
 }
 
 #custom-media-play {
@@ -118,6 +137,7 @@ window#waybar {
 
 /* Hide media controls when stopped */
 #custom-media-prev.stopped,
+#custom-media-play.stopped,
 #custom-media-next.stopped {
   padding: 0;
   margin: 0;
@@ -128,6 +148,7 @@ window#waybar {
 /* ======================= */
 /* Sliders & Drawers       */
 /* ======================= */
+
 /* The drawer background itself */
 .audio, .brightness {
     background: @surface;
@@ -176,7 +197,7 @@ window#waybar {
 #custom-arch { color: @blue; font-size: 16px; }
 
 /* Calendar Highlight */
-/* GTK CSS for the Calendar Popup */
+/* Calendar Popup */
 calendar {
     background-color: @bg;
     color: @fg;
