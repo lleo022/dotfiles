@@ -86,7 +86,7 @@ window#waybar {
 }
 
 /* ======================= */
-/* Media Group (Screenshot Match) */
+/* Media Group */
 /* ======================= */
 /* The container for the media group */
 #media {
@@ -117,9 +117,24 @@ window#waybar {
     color: @cyan;
 }
 
-/* Hide media group when not playing */
-/* Note: This requires the waybar 'mpris' module to support empty states or a script */
-/* A simple way is relying on playerctl output being empty */
+/* Hide media controls when stopped */
+#custom-media-prev.stopped,
+#custom-media-next.stopped {
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  opacity: 0;
+}
+
+/* Hide the entire media group when no player is active */
+#mpris:empty ~ #custom-media-prev,
+#mpris:empty ~ #custom-media-play,
+#mpris:empty ~ #custom-media-next {
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  opacity: 0;
+}
 
 /* ======================= */
 /* Sliders & Drawers       */
