@@ -8,7 +8,7 @@
   "modules-left": [
     "custom/arch", 
     "hyprland/workspaces",
-    "custom/nowplaying"
+    "group/media"
   ],
   "modules-center": [
     "clock"
@@ -25,7 +25,15 @@
 
   // --- Groups ---
 
-  // Media group replaced with single custom module
+  "group/media": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/media-prev",
+      "custom/media-play",
+      "custom/media-next",
+      "custom/nowplaying"
+    ]
+  },
 
   "group/brightness": {
     "orientation": "horizontal",
@@ -54,6 +62,7 @@
   },
 
   // --- Modules ---
+  
   "custom/nowplaying": {
     "exec": "~/.config/waybar/scripts/now-playing.sh",
     "format": "󰎆 {text}",
@@ -61,10 +70,38 @@
     "interval": 2,
     "escape": true,
     "hide-empty-text": true,
-    "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl next",
-    "on-click-middle": "playerctl previous",
     "tooltip": true
+  },
+
+  "custom/media-prev": {
+    "format": "󰒮",
+    "return-type": "json",
+    "exec": "playerctl status 2>/dev/null | grep -q 'Playing\\|Paused' && echo '{\"class\": \"active\"}' || echo '{\"class\": \"inactive\"}'",
+    "on-click": "playerctl previous",
+    "interval": 2,
+    "tooltip": false
+  },
+  
+  "custom/media-play": {
+    "format": "{icon}",
+    "return-type": "json",
+    "exec": "playerctl status 2>/dev/null | grep -q 'Playing' && echo '{\"text\": \"Playing\", \"class\": \"active\"}' || (playerctl status 2>/dev/null | grep -q 'Paused' && echo '{\"text\": \"Paused\", \"class\": \"active\"}' || echo '{\"class\": \"inactive\"}')",
+    "on-click": "playerctl play-pause",
+    "format-icons": {
+      "Playing": "󰏤", 
+      "Paused": "󰐊"
+    },
+    "interval": 2,
+    "tooltip": false
+  },
+
+  "custom/media-next": {
+    "format": "󰒭",
+    "return-type": "json",
+    "exec": "playerctl status 2>/dev/null | grep -q 'Playing\\|Paused' && echo '{\"class\": \"active\"}' || echo '{\"class\": \"inactive\"}'",
+    "on-click": "playerctl next",
+    "interval": 2,
+    "tooltip": false
   },
 
   "custom/arch": {
@@ -96,54 +133,6 @@
     }
   },
 
-  "mpris": {
-    "format": "{player_icon} {title} - {artist}",
-    "format-paused": "{player_icon} {title} - {artist}",
-    "format-stopped": "",
-    "player-icons": {
-      "default": "󰎆 ",
-      "spotify": "󰓇 ",
-      "firefox": "󰈹 "
-    },
-    "ignored-players": ["vlc"],
-    "max-length": 45,
-    "tooltip-format": "{position}/{length}",
-    "status-icons": {
-      "playing": "󰐊",
-      "paused": "󰏤",
-      "stopped": ""
-    }
-  },
-
-  "custom/media-prev": {
-    "format": "{}",
-    "return-type": "json",
-    "exec": "playerctl -a metadata --format '{\"text\": \"󰒮\", \"class\": \"{{status}}\"}' -F 2>/dev/null || echo '{\"text\": \"\", \"class\": \"stopped\"}'",
-    "on-click": "playerctl previous",
-    "tooltip": false
-  },
-  
-  "custom/media-play": {
-    "format": "{icon}",
-    "return-type": "json",
-    "max-length": 40,
-    "exec": "playerctl -a metadata --format '{\"text\": \"{{status}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-    "on-click": "playerctl play-pause",
-    "format-icons": {
-      "Playing": "󰏤", 
-      "Paused": "󰐊"
-    },
-    "tooltip": false
-  },
-
-  "custom/media-next": {
-    "format": "{}",
-    "return-type": "json",
-    "exec": "playerctl -a metadata --format '{\"text\": \"󰒭\", \"class\": \"{{status}}\"}' -F 2>/dev/null || echo '{\"text\": \"\", \"class\": \"stopped\"}'",
-    "on-click": "playerctl next",
-    "tooltip": false
-  },
-
   "custom/menu": { 
     "format": "󰀻", 
     "tooltip": false 
@@ -169,7 +158,7 @@
 
   "pulseaudio": {
     "format": "{icon}",
-    "format-muted": "󰟁",
+    "format-muted": "󰝟",
     "format-icons": {
       "default": ["󰕿", "󰖀", "󰕾"]
     },

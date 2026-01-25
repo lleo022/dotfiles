@@ -85,24 +85,64 @@ window#waybar {
 }
 
 /* ======================= */
-/* Media Module - Simple Custom */
+/* Media Group             */
 /* ======================= */
-#custom-nowplaying {
+
+/* The media group container - only visible when content is active */
+#media {
   background: @surface;
   border-radius: 8px;
   margin: 2px 3px;
-  padding: 0 12px;
+  padding: 0 6px;
   min-height: 24px;
   transition: all 0.3s ease;
+}
+
+/* Now Playing text display */
+#custom-nowplaying {
+  background: transparent;
   color: @cyan;
+  padding: 0 8px;
+  margin: 0;
+  transition: all 0.3s ease;
 }
 
 #custom-nowplaying.paused {
   color: @yellow;
 }
 
-#custom-nowplaying:hover {
-  background: @selection;
+/* Media control buttons */
+#custom-media-prev,
+#custom-media-play,
+#custom-media-next {
+  background: transparent;
+  color: @blue;
+  padding: 0 6px;
+  margin: 0;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+#custom-media-play {
+  color: @cyan;
+}
+
+/* Hide controls when inactive (nothing playing) */
+#custom-media-prev.inactive,
+#custom-media-play.inactive,
+#custom-media-next.inactive {
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  opacity: 0;
+}
+
+/* Hover effects for media controls */
+#custom-media-prev.active:hover,
+#custom-media-play.active:hover,
+#custom-media-next.active:hover {
+  color: @magenta;
 }
 
 /* ======================= */
