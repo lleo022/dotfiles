@@ -95,6 +95,7 @@
   "mpris": {
     "format": "{player_icon} {title} - {artist}",
     "format-paused": "{player_icon} {title} - {artist}",
+    "format-stopped": "",
     "player-icons": {
       "default": "󰎆 ",
       "spotify": "󰓇 ",
