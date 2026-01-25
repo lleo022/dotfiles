@@ -54,7 +54,7 @@
   // --- Modules ---
   
   "custom/nowplaying": {
-    "exec": "~/.config/waybar/scripts/now-playing.sh",
+    "exec": "~/.config/waybar/my-script.sh",
     "format": "󰎆 {text}",
     "return-type": "json",
     "interval": 2,
