@@ -5,8 +5,8 @@
 }
 
 :root {
-  --cc-bg: rgba(65, 72, 104, 1.0);
-  --noti-border-color: @white;
+  --cc-bg: rgba(31, 31, 31, 1.0);
+  --noti-border-color: rgba(255, 255, 255, 1.0);
   --noti-bg: 48, 48, 48;
   --noti-bg-alpha: 0.8;
   --noti-bg-darker: rgb(38, 38, 38);
@@ -34,7 +34,7 @@
 }
 
 /* Fallback for older CSS themes */
-@define-color cc-bg rgba(0, 0, 0, 0.85);
+@define-color cc-bg rgba(31, 31, 31, 1.0);
 @define-color noti-border-color rgba(255, 255, 255, 0.15);
 @define-color noti-bg rgba(48, 48, 48, 0.8);
 @define-color noti-bg-opaque rgb(48, 48, 48);
@@ -376,6 +376,11 @@ notificationwindow, blankwindow, blankwindow {
 }
 
 /* Title widget */
+.widget-title {
+  margin-bottom: 0px;
+  padding-bottom: 4px;
+}
+
 .widget-title > label {
   margin-right: 8px;
   font-size: 1.5rem;
@@ -390,6 +395,8 @@ notificationwindow, blankwindow, blankwindow {
 /* DND widget */
 .widget-dnd {
   padding: 8px;
+  margin-top: 0px;
+  padding-top: 4px;
 }
 
 .widget-dnd label {
@@ -405,7 +412,7 @@ notificationwindow, blankwindow, blankwindow {
 }
 
 .widget-dnd switch:checked {
-  background: @blue;
+  background: @red;
 }
 
 .widget-dnd switch slider {
