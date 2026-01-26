@@ -58,7 +58,7 @@
   ],
   "widget-config": {
     "notifications": {
-      "vexpand": true
+      "vexpand": false
     },
     "inhibitors": {
       "text": "Inhibitors",
