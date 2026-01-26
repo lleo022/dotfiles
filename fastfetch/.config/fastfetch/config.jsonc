@@ -21,7 +21,7 @@
         },
         {
             "type": "custom",
-            "format": "\u001b[34m┌────────────┐",
+            "format": "\u001b[34m┌───────────┐",
             "outputColor": "blue"
         },
         {
@@ -64,7 +64,7 @@
         },
         {
             "type": "custom",
-            "format": "\u001b[34m└────────────┘",
+            "format": "\u001b[34m└───────────┘",
             "outputColor": "blue"
         },
         "break",
