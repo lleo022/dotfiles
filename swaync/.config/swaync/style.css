@@ -5,7 +5,7 @@
 }
 
 :root {
-  --cc-bg: rgb(65, 72, 104, 1.0);
+  --cc-bg: rgba(65, 72, 104, 1.0);
   --noti-border-color: @white;
   --noti-bg: 48, 48, 48;
   --noti-bg-alpha: 0.8;
