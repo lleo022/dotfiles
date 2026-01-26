@@ -412,7 +412,7 @@ notificationwindow, blankwindow, blankwindow {
 }
 
 .widget-dnd switch:checked {
-  background: @red;
+  background: #f7768e;
 }
 
 .widget-dnd switch slider {
