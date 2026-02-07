@@ -5,12 +5,11 @@ import QtQuick
 import QtQuick.Layouts
 import qs.config
 import qs.services
-import qs.components
+import "../../components/"
 import "../quickSettings/"
 import "../notifications/"
 import "../systemMonitor/"
 import "../calendar/"
-import "."
 
 Scope {
     id: root
@@ -26,12 +25,21 @@ Scope {
 
             property bool enableAutoHide: StateService.get("bar.autoHide", false)
 
+            // NameSpace
             WlrLayershell.namespace: "qs_modules"
+
+            // --- BAR CONFIGURATION ---
             implicitHeight: StateService.get("bar.height", 30)
             color: "transparent"
             screen: modelData
 
+            // Overlay ensures it stays above games/fullscreen
+            // WlrLayershell.layer: WlrLayer.Overlay
+
+            // Set the exclusion mode
             exclusionMode: enableAutoHide ? ExclusionMode.Ignore : ExclusionMode.Normal
+
+            // Ensure reserved area size when in Normal mode
             exclusiveZone: enableAutoHide ? 0 : height
 
             anchors {
@@ -40,12 +48,17 @@ Scope {
                 right: true
             }
 
+            // --- AUTOHIDE LOGIC ---
+            // If mouse is hovering, margin is 0 (show everything).
+            // Otherwise, margin is -29 (hide, leaving 1px at the top to catch the mouse).
             margins.top: {
                 if (WindowManagerService.anyModuleOpen || !enableAutoHide || mouseSensor.hovered)
                     return 0;
+
                 return (-1 * (height - 1));
             }
 
+            // Smooth window movement animation
             Behavior on margins.top {
                 NumberAnimation {
                     duration: Config.animDuration
@@ -53,6 +66,9 @@ Scope {
                 }
             }
 
+            // --- MOUSE SENSOR ---
+            // Covers the entire window. Since the window never "disappears" (only moves off-screen),
+            // the remaining 1px still detects the mouse.
             HoverHandler {
                 id: mouseSensor
             }
@@ -69,11 +85,9 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: root.gapIn
 
+                    CalendarButton {}
                     SystemMonitorButton {}
-                    Workspaces {}
-                    MediaWidget {
-                        Layout.fillWidth: false
-                    }
+                    ActiveWindow {}
                 }
 
                 // --- CENTER ---
@@ -82,7 +96,7 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: root.gapIn
 
-                    CalendarButton {}
+                    Workspaces {}
                 }
 
                 // --- RIGHT ---
@@ -93,7 +107,7 @@ Scope {
                     spacing: root.gapIn
 
                     TrayWidget {}
-                    QuickSettingsPill {}
+                    QuickSettingsButton {}
                     NotificationButton {}
                 }
             }
