@@ -1,0 +1,46 @@
+#!/bin/bash
+# Simple wallpaper switcher
+
+WALLPAPER_DIR="$HOME/.local/wallpapers"
+STATE_FILE="$HOME/.config/quickshell/state.json"
+
+# Get current theme
+CURRENT_THEME=$(jq -r '.theme // "default"' "$STATE_FILE" 2>/dev/null)
+THEME_WALLPAPER_DIR="$WALLPAPER_DIR/themes/$CURRENT_THEME"
+
+# Look for wallpapers in theme directory first, then main directory
+if [ -d "$THEME_WALLPAPER_DIR" ]; then
+    SEARCH_DIR="$THEME_WALLPAPER_DIR"
+else
+    SEARCH_DIR="$WALLPAPER_DIR"
+fi
+
+# Find all images
+WALLPAPERS=$(find "$SEARCH_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) 2>/dev/null)
+
+if [ -z "$WALLPAPERS" ]; then
+    notify-send "Wallpaper" "No wallpapers found in $SEARCH_DIR" -i dialog-error
+    exit 1
+fi
+
+# Select wallpaper
+if command -v rofi &> /dev/null; then
+    SELECTED=$(echo "$WALLPAPERS" | xargs -n1 basename | rofi -dmenu -p "Select wallpaper")
+    SELECTED="$SEARCH_DIR/$SELECTED"
+elif command -v wofi &> /dev/null; then
+    SELECTED=$(echo "$WALLPAPERS" | xargs -n1 basename | wofi --dmenu -p "Select wallpaper")
+    SELECTED="$SEARCH_DIR/$SELECTED"
+else
+    SELECTED=$(echo "$WALLPAPERS" | fzf --prompt="Select wallpaper: ")
+fi
+
+if [ -n "$SELECTED" ] && [ -f "$SELECTED" ]; then
+    # Set wallpaper with swww
+    swww img "$SELECTED" --transition-type fade --transition-fps 60
+    
+    # Update state file
+    jq --arg wp "$SELECTED" '.wallpaper = $wp' "$STATE_FILE" > "${STATE_FILE}.tmp"
+    mv "${STATE_FILE}.tmp" "$STATE_FILE"
+    
+    notify-send "Wallpaper" "Changed to $(basename "$SELECTED")" -i preferences-desktop-wallpaper
+fi

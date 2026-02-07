@@ -1,0 +1,38 @@
+{
+  "name": "Tokyo Night",
+  "palette": {
+    "background": "#1a1b26",
+    "foreground": "#a9b1d6",
+    "accent": "#7aa2f7",
+    "accentAlt": "#bb9af7",
+    "success": "#9ece6a",
+    "warning": "#e0af68",
+    "error": "#f7768e",
+    "muted": "#414868"
+  },
+  "terminal": {
+    "background": "#1a1b26",
+    "foreground": "#a9b1d6",
+    "black": "#15161e",
+    "red": "#f7768e",
+    "green": "#9ece6a",
+    "yellow": "#e0af68",
+    "blue": "#7aa2f7",
+    "magenta": "#bb9af7",
+    "cyan": "#7dcfff",
+    "white": "#a9b1d6",
+    "brightBlack": "#414868",
+    "brightRed": "#f7768e",
+    "brightGreen": "#9ece6a",
+    "brightYellow": "#e0af68",
+    "brightBlue": "#7aa2f7",
+    "brightMagenta": "#bb9af7",
+    "brightCyan": "#7dcfff",
+    "brightWhite": "#c0caf5"
+  },
+  "hyprland": {
+    "activeBorder": "rgb(7aa2f7)",
+    "inactiveBorder": "rgb(414868)"
+  },
+  "wallpaper": "~/.local/wallpapers/themes/tokyonight/default.png"
+}

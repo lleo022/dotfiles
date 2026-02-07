@@ -1,0 +1,24 @@
+{
+  "theme": "tokyonight",
+  "wallpaper": "~/.local/wallpapers/default.png",
+  "bar": {
+    "height": 36,
+    "position": "top",
+    "modules": {
+      "left": ["workspaces", "window-title"],
+      "center": ["clock"],
+      "right": ["system-tray", "network", "audio", "battery", "notifications", "power"]
+    }
+  },
+  "launcher": {
+    "maxResults": 8,
+    "categories": true
+  },
+  "notifications": {
+    "maxVisible": 5,
+    "timeout": 5000
+  },
+  "quicksettings": {
+    "position": "top-right"
+  }
+}

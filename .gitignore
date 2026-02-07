@@ -10,3 +10,12 @@ ssh_config
 *history*
 
 .cache/
+
+state.json
+
+*.swp
+*~
+
+.local/wallpapers/
+
+.local/themes/state.json
