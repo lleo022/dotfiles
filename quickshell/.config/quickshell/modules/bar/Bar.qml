@@ -10,6 +10,7 @@ import "../quickSettings/"
 import "../notifications/"
 import "../systemMonitor/"
 import "../calendar/"
+import "."
 
 Scope {
     id: root
