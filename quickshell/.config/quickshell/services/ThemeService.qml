@@ -124,10 +124,7 @@ Singleton {
         // 5. Apply to Kitty
         _applyKitty(data.terminal);
 
-        // 6. Apply to Neovim
-        _applyNeovim(data.neovim);
-
-        // 7. Apply theme wallpaper
+        // 6. Apply theme wallpaper
         _applyWallpaper(data.wallpaper);
 
         console.log("[ThemeService] Theme applied:", data.name || themeName);
@@ -161,18 +158,6 @@ Singleton {
 
         kittyProc.command = ["bash", "-c", "cat > " + shellEscape(kittyThemePath) + " << 'THEME_EOF'\n" + content + "THEME_EOF\n" + "pkill -USR1 -x kitty 2>/dev/null; true"];
         kittyProc.running = true;
-    }
-
-    function _applyNeovim(neovimConfig) {
-        if (!neovimConfig || !neovimConfig.colorscheme)
-            return;
-
-        const colorscheme = neovimConfig.colorscheme;
-
-        // Write the colorscheme name to a file that Neovim reads on startup,
-        // then send the command to all running Neovim instances via their sockets
-        nvimProc.command = ["bash", "-c", "echo '" + colorscheme + "' > " + shellEscape(nvimThemePath) + " && " + "for sock in /run/user/$(id -u)/nvim.*.0; do " + "  [ -S \"$sock\" ] && nvim --server \"$sock\" --remote-send '<Cmd>colorscheme " + colorscheme + "<CR>' 2>/dev/null & " + "done; wait"];
-        nvimProc.running = true;
     }
 
     function _applyWallpaper(wallpaperFile) {
@@ -287,17 +272,6 @@ Singleton {
         id: hyprProc
         stderr: SplitParser {
             onRead: data => console.error("[ThemeService:Hyprland] " + data)
-        }
-    }
-
-    Process {
-        id: nvimProc
-        stderr: SplitParser {
-            onRead: data => console.error("[ThemeService:Neovim] " + data)
-        }
-        onExited: exitCode => {
-            if (exitCode === 0)
-                console.log("[ThemeService] Neovim theme updated");
         }
     }
 
