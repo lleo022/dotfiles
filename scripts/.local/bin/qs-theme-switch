@@ -8,27 +8,23 @@ STATE_FILE="$HOME/.config/quickshell/state.json"
 THEMES=$(ls "$THEME_DIR"/*.json 2>/dev/null | xargs -n1 basename | sed 's/\.json$//')
 
 if [ -z "$THEMES" ]; then
-    echo "No themes found in $THEME_DIR"
+    notify-send "Theme Switcher" "No themes found" -i dialog-error
     exit 1
 fi
 
-# If theme name provided as argument
-if [ -n "$1" ]; then
-    SELECTED="$1"
+# Select theme (use rofi, wofi, or fzf)
+if command -v rofi &> /dev/null; then
+    SELECTED=$(echo "$THEMES" | rofi -dmenu -p "Select theme" -i)
+elif command -v wofi &> /dev/null; then
+    SELECTED=$(echo "$THEMES" | wofi --dmenu -p "Select theme" -i)
+elif command -v fzf &> /dev/null; then
+    SELECTED=$(echo "$THEMES" | fzf --prompt="Select theme: ")
 else
-    # Use rofi/wofi to select theme (install one of these)
-    if command -v rofi &> /dev/null; then
-        SELECTED=$(echo "$THEMES" | rofi -dmenu -p "Select theme")
-    elif command -v wofi &> /dev/null; then
-        SELECTED=$(echo "$THEMES" | wofi --dmenu -p "Select theme")
-    else
-        # Fallback to fzf
-        SELECTED=$(echo "$THEMES" | fzf --prompt="Select theme: ")
-    fi
+    notify-send "Theme Switcher" "Install rofi, wofi, or fzf" -i dialog-error
+    exit 1
 fi
 
 if [ -z "$SELECTED" ]; then
-    echo "No theme selected"
     exit 0
 fi
 
@@ -36,20 +32,12 @@ fi
 if [ -f "$STATE_FILE" ]; then
     jq --arg theme "$SELECTED" '.theme = $theme' "$STATE_FILE" > "${STATE_FILE}.tmp"
     mv "${STATE_FILE}.tmp" "$STATE_FILE"
-    echo "Theme changed to: $SELECTED"
     
-    # Apply wallpaper if theme has one
-    WALLPAPER=$(jq -r '.wallpaper // empty' "$THEME_DIR/$SELECTED.json")
-    if [ -n "$WALLPAPER" ]; then
-        WALLPAPER="${WALLPAPER/#\~/$HOME}"
-        if [ -f "$WALLPAPER" ]; then
-            swww img "$WALLPAPER" --transition-type fade
-        fi
-    fi
-    
-    # Reload QuickShell to apply theme
-    qs-reload
+    notify-send "Theme Switcher" "Switched to $SELECTED" -i preferences-desktop-theme
 else
-    echo "State file not found: $STATE_FILE"
-    exit 1
+    # Create initial state file
+    mkdir -p "$(dirname "$STATE_FILE")"
+    echo "{\"theme\": \"$SELECTED\", \"bar\": {\"height\": 36, \"position\": \"top\"}}" > "$STATE_FILE"
+    
+    notify-send "Theme Switcher" "Created state and set theme to $SELECTED" -i preferences-desktop-theme
 fi

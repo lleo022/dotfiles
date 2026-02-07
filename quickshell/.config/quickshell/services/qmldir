@@ -1,0 +1,5 @@
+module qs.services
+
+singleton ThemeService 1.0 ThemeService.qml
+singleton AudioService 1.0 AudioService.qml
+singleton OsdService 1.0 OsdService.qml

@@ -1,35 +1,62 @@
-import Quickshell
-import Quickshell.Wayland
+//@ pragma Env QS_NO_RELOAD_POPUP=1
+pragma ComponentBehavior: Bound
 import QtQuick
-
-import "components/Bar" as BarComponents
-import "utils" as Utils
+import Quickshell
+import Quickshell.Hyprland
+import qs.services
+import "./modules/bar/"
+import "./modules/osd/"
 
 ShellRoot {
-    // Load configuration and theme
-    Utils.Config {
-        id: config
+    id: root
+
+    // =========================================================================
+    // UI COMPONENTS
+    // =========================================================================
+
+    // Bar - always active
+    Bar {}
+
+    // OSD - lazy loaded
+    Loader {
+        active: OsdService.visible
+        source: "./modules/osd/OsdOverlay.qml"
     }
 
-    Utils.Theme {
-        id: theme
-        themeName: config.currentTheme
-    }
+    // =========================================================================
+    // GLOBAL SHORTCUTS
+    // =========================================================================
 
-    // Create a bar on each monitor
-    Variants {
-        model: Quickshell.screens
-        
-        delegate: Component {
-            BarComponents.MainBar {
-                screen: modelData
-            }
+    // Volume Up
+    GlobalShortcut {
+        name: "volume_up"
+        description: "Increase volume"
+
+        onPressed: {
+            AudioService.increaseVolume()
+            OsdService.showVolume(AudioService.volume, AudioService.muted)
         }
     }
 
-    // Global services
-    Component.onCompleted: {
-        console.log("QuickShell started")
-        console.log("Current theme:", theme.themeName)
+    // Volume Down
+    GlobalShortcut {
+        name: "volume_down"
+        description: "Decrease volume"
+
+        onPressed: {
+            AudioService.decreaseVolume()
+            OsdService.showVolume(AudioService.volume, AudioService.muted)
+        }
+    }
+
+    // Volume Mute
+    GlobalShortcut {
+        name: "volume_mute"
+        description: "Mute volume"
+
+        onPressed: {
+            AudioService.toggleMute()
+            OsdService.showVolume(AudioService.volume, AudioService.muted)
+        }
     }
 }
