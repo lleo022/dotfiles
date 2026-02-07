@@ -4,6 +4,7 @@ import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 import qs.services
+import "." as BarComponents
 
 Scope {
     Variants {
@@ -44,7 +45,7 @@ Scope {
                             Layout.alignment: Qt.AlignLeft
                             spacing: ThemeService.paddingSmall
 
-                            Workspaces {
+                            BarComponents.Workspaces {
                                 screen: bar.modelData
                             }
                         }
@@ -55,7 +56,7 @@ Scope {
                         }
 
                         // Center modules
-                        Clock {}
+                        BarComponents.Clock {}
 
                         // Right spacer
                         Item {
@@ -67,7 +68,7 @@ Scope {
                             Layout.alignment: Qt.AlignRight
                             spacing: ThemeService.paddingSmall
 
-                            Network {}
+                            BarComponents.Network {}
 
                             Rectangle {
                                 width: 1
@@ -75,9 +76,9 @@ Scope {
                                 color: ThemeService.border
                             }
 
-                            Audio {}
+                            BarComponents.Audio {}
 
-                            Battery {}
+                            BarComponents.Battery {}
                         }
                     }
                 }
