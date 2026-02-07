@@ -5,7 +5,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.config
 import qs.services
-import "../../components/"
+import qs.components
 import "../quickSettings/"
 import "../notifications/"
 import "../systemMonitor/"
