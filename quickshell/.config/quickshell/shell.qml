@@ -61,34 +61,3 @@ ShellRoot {
         }
     }
 }
-```
-
-**Key points:**
-- Each `GlobalShortcut` block must have closing `}`
-- The `ShellRoot` must have closing `}`
-- Make sure there are no extra characters after the final `}`
-
----
-
-## **Quick Syntax Check**
-
-Count the braces:
-```
-ShellRoot {              // 1 opening
-    Loader {             // 2 opening
-    }                    // 1 closing
-    Loader {             // 2 opening
-    }                    // 1 closing
-    GlobalShortcut {     // 2 opening
-        onPressed: {     // 3 opening
-        }                // 1 closing
-    }                    // 1 closing
-    GlobalShortcut {     // 2 opening
-        onPressed: {     // 3 opening
-        }                // 1 closing
-    }                    // 1 closing
-    GlobalShortcut {     // 2 opening
-        onPressed: {     // 3 opening
-        }                // 1 closing
-    }                    // 1 closing
-}                        // Final closing
