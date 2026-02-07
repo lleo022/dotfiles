@@ -1,66 +1,82 @@
 pragma Singleton
-import QtQuick
+pragma ComponentBehavior: Bound
+
 import Quickshell
-import Quickshell.Io
+import Quickshell.Services.Pipewire
+import QtQuick
 
-QtObject {
-    id: audioService
+Singleton {
+    id: root
 
-    // =========================================================================
-    // PROPERTIES
-    // =========================================================================
+    readonly property var sink: Pipewire.defaultAudioSink
+    readonly property PwNode source: Pipewire.defaultAudioSource
 
-    property int volume: 50
-    property bool muted: false
-
-    // =========================================================================
-    // POLLING TIMER
-    // =========================================================================
-
-    property Timer updateTimer: Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        triggeredOnStart: true
-
-        onTriggered: audioService.updateVolume()
+    // Keeps the objects alive in memory
+    PwObjectTracker {
+        objects: [root.sink, root.source]
     }
 
-    // =========================================================================
-    // FUNCTIONS
-    // =========================================================================
+    // Check if the sink is ready to operate
+    readonly property bool sinkReady: sink !== null && sink.audio !== null
+    readonly property bool sourceReady: source !== null && source.audio !== null
 
-    function updateVolume() {
-        // Get volume
-        const volProcess = Process.exec("pamixer", ["--get-volume"])
-        if (volProcess.exitCode === 0) {
-            volume = parseInt(volProcess.stdout.trim())
+    readonly property bool muted: sinkReady ? (sink.audio.muted ?? false) : false
+    readonly property real volume: {
+        if (!sinkReady)
+            return 0;
+        const vol = sink.audio.volume;
+        return Math.max(0, Math.min(1, vol));
+    }
+    readonly property int percentage: Math.round(volume * 100)
+
+    readonly property bool sourceMuted: sourceReady ? (source.audio.muted ?? false) : false
+    readonly property real sourceVolume: sourceReady ? (source.audio.volume ?? 0) : 0
+    readonly property int sourcePercentage: Math.round(sourceVolume * 100)
+
+    readonly property string systemIcon: {
+        if (!sinkReady || muted || volume <= 0)
+            return "";
+
+        if (volume < 0.33)
+            return "";
+
+        if (volume < 0.67)
+            return "";
+
+        return "";
+    }
+
+    function setVolume(newVolume) {
+        if (sinkReady) {
+            sink.audio.muted = false;
+            sink.audio.volume = Math.max(0, Math.min(1, newVolume));
         }
+    }
 
-        // Get mute status
-        const muteProcess = Process.exec("pamixer", ["--get-mute"])
-        if (muteProcess.exitCode === 0) {
-            muted = muteProcess.stdout.trim() === "true"
+    function toggleMute() {
+        if (sinkReady) {
+            sink.audio.muted = !sink.audio.muted;
         }
     }
 
     function increaseVolume() {
-        Process.exec("pamixer", ["-i", "5"])
-        updateVolume()
+        setVolume(volume + 0.05);
     }
 
     function decreaseVolume() {
-        Process.exec("pamixer", ["-d", "5"])
-        updateVolume()
+        setVolume(volume - 0.05);
     }
 
-    function toggleMute() {
-        Process.exec("pamixer", ["--toggle-mute"])
-        updateVolume()
+    function setSourceVolume(newVolume) {
+        if (sourceReady && source.audio) {
+            source.audio.muted = false;
+            source.audio.volume = Math.max(0, Math.min(1.5, newVolume));
+        }
     }
 
-    function setVolume(value) {
-        Process.exec("pamixer", ["--set-volume", value.toString()])
-        updateVolume()
+    function toggleSourceMute() {
+        if (sourceReady && source.audio) {
+            source.audio.muted = !source.audio.muted;
+        }
     }
 }

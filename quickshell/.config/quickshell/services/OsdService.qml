@@ -1,56 +1,52 @@
 pragma Singleton
+pragma ComponentBehavior: Bound
+
 import QtQuick
+import Quickshell
 
-QtObject {
-    id: osdService
+Singleton {
+    id: root
 
-    // =========================================================================
+    // ========================================================================
     // PROPERTIES
-    // =========================================================================
+    // ========================================================================
 
     property bool visible: false
-    property string type: "volume"  // "volume" or "brightness"
-    property int value: 0
-    property bool isMuted: false
+    property string type: "volume" // "volume", "brightness"
+    property real value: 0
+    property bool muted: false
 
-    // =========================================================================
-    // TIMER
-    // =========================================================================
+    // ========================================================================
+    // HIDE TIMER
+    // ========================================================================
 
-    property Timer hideTimer: Timer {
-        interval: 2000
-        running: false
-        repeat: false
-
-        onTriggered: {
-            osdService.visible = false
-        }
+    Timer {
+        id: hideTimer
+        interval: 1500
+        onTriggered: root.visible = false
     }
 
-    // =========================================================================
-    // FUNCTIONS
-    // =========================================================================
+    // ========================================================================
+    // PUBLIC FUNCTIONS
+    // ========================================================================
 
-    function showVolume(volume, muted) {
-        type = "volume"
-        value = volume
-        isMuted = muted
-        visible = true
-
-        hideTimer.restart()
+    function showVolume(vol: real, isMuted: bool) {
+        root.type = "volume";
+        root.value = vol;
+        root.muted = isMuted;
+        root.visible = true;
+        hideTimer.restart();
     }
 
-    function showBrightness(brightness) {
-        type = "brightness"
-        value = brightness
-        isMuted = false
-        visible = true
-
-        hideTimer.restart()
+    function showBrightness(brightness: real) {
+        root.type = "brightness";
+        root.value = brightness;
+        root.muted = false;
+        root.visible = true;
+        hideTimer.restart();
     }
 
     function hide() {
-        visible = false
-        hideTimer.stop()
+        root.visible = false;
     }
 }

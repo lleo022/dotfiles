@@ -1,111 +1,171 @@
 pragma ComponentBehavior: Bound
-import Quickshell
-import Quickshell.Wayland
+
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Wayland
 import qs.services
+import qs.config
 
 Scope {
+    id: root
+
+    // Icons for each type (Nerd Font)
+    readonly property var icons: ({
+            "volume_off": "󰖁",
+            "volume_low": "󰕿",
+            "volume_medium": "󰖀",
+            "volume_high": "󰕾",
+            "mute": "󰝟",
+            "brightness_low": "󰃞",
+            "brightness_medium": "󰃟",
+            "brightness_high": "󰃠"
+        })
+
+    function getIcon(): string {
+        if (OsdService.type === "mute" || OsdService.muted) {
+            return icons.mute;
+        }
+        if (OsdService.type === "brightness") {
+            if (OsdService.value < 0.3)
+                return icons.brightness_low;
+            if (OsdService.value < 0.6)
+                return icons.brightness_medium;
+            return icons.brightness_high;
+        }
+        // Volume
+        if (OsdService.value < 0.01)
+            return icons.volume_off;
+        if (OsdService.value < 0.33)
+            return icons.volume_low;
+        if (OsdService.value < 0.66)
+            return icons.volume_medium;
+        return icons.volume_high;
+    }
+
+    // Create OSD on all monitors
     Variants {
         model: Quickshell.screens
 
-        delegate: Component {
-            FloatingWindow {
-                id: osdWindow
+        PanelWindow {
+            id: osdWindow
 
-                required property var modelData
+            required property var modelData
 
-                screen: modelData
-                visible: OsdService.visible
+            screen: modelData
 
-                width: 300
-                height: 100
+            // Position: bottom-center of the screen
+            anchors.bottom: true
+            margins.bottom: 80
+            exclusionMode: ExclusionMode.Ignore
 
-                anchor {
-                    horizontal: "center"
-                    vertical: "center"
+            WlrLayershell.layer: WlrLayer.Overlay
+            WlrLayershell.namespace: "qs_modules"
+
+            implicitWidth: content.width
+            implicitHeight: content.height
+            color: "transparent"
+
+            // Does not block mouse
+            mask: Region {}
+
+            // Visibility controlled by the service
+            visible: OsdService.visible
+
+            Rectangle {
+                id: content
+                width: 280
+                height: 50
+                radius: Config.radiusLarge
+                color: Config.backgroundTransparentColor
+                border.color: Qt.alpha(Config.accentColor, 0.2)
+                border.width: 1
+
+                // Entry animation
+                scale: OsdService.visible ? 1 : 0.8
+                opacity: OsdService.visible ? 1 : 0
+
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: Config.animDuration
+                        easing.type: Easing.OutBack
+                        easing.overshoot: 1.2
+                    }
                 }
 
-                color: "transparent"
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: Config.animDuration
+                    }
+                }
 
-                Rectangle {
+                RowLayout {
                     anchors.fill: parent
-                    color: ThemeService.background
-                    radius: ThemeService.borderRadius * 2
-                    border.width: 1
-                    border.color: ThemeService.border
+                    anchors.leftMargin: 16
+                    anchors.rightMargin: 16
+                    spacing: 14
 
-                    opacity: 0.95
+                    // Icon
+                    Text {
+                        text: root.getIcon()
+                        font.family: Config.font
+                        font.pixelSize: 22
+                        color: OsdService.muted ? Config.mutedColor : Config.accentColor
 
-                    ColumnLayout {
-                        anchors.fill: parent
-                        anchors.margins: ThemeService.paddingLarge
-                        spacing: ThemeService.paddingMedium
-
-                        // Icon and label
-                        RowLayout {
-                            Layout.fillWidth: true
-                            spacing: ThemeService.paddingMedium
-
-                            Text {
-                                text: {
-                                    if (OsdService.type === "volume") {
-                                        return OsdService.isMuted ? "󰖁" :
-                                               OsdService.value > 50 ? "" :
-                                               OsdService.value > 0 ? "󰖀" : "󰕿"
-                                    } else {
-                                        return "󰃠"  // Brightness icon
-                                    }
-                                }
-                                color: ThemeService.foreground
-                                font.family: ThemeService.fontFamily
-                                font.pixelSize: 32
-                            }
-
-                            Text {
-                                text: OsdService.type === "volume" ? "Volume" : "Brightness"
-                                color: ThemeService.foreground
-                                font.family: ThemeService.fontFamily
-                                font.pixelSize: ThemeService.fontSizeLarge
-                                font.bold: true
-                                Layout.fillWidth: true
-                            }
-
-                            Text {
-                                text: OsdService.value + "%"
-                                color: ThemeService.accent
-                                font.family: ThemeService.fontFamily
-                                font.pixelSize: ThemeService.fontSizeLarge
-                                font.bold: true
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: Config.animDurationShort
                             }
                         }
+                    }
 
-                        // Progress bar
+                    // Progress bar
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 6
+                        radius: 3
+                        color: Config.surface1Color
+
                         Rectangle {
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 8
-                            radius: 4
-                            color: ThemeService.muted
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
 
-                            Rectangle {
-                                width: parent.width * (OsdService.value / 100)
-                                height: parent.height
-                                radius: parent.radius
-                                color: OsdService.isMuted ? ThemeService.muted : ThemeService.accent
+                            width: parent.width * Math.min(1, OsdService.value)
+                            radius: parent.radius
+                            color: OsdService.muted ? Config.mutedColor : Config.accentColor
 
-                                Behavior on width {
-                                    NumberAnimation { duration: 100 }
+                            Behavior on width {
+                                NumberAnimation {
+                                    duration: Config.animDurationShort
+                                    easing.type: Easing.OutCubic
+                                }
+                            }
+
+                            Behavior on color {
+                                ColorAnimation {
+                                    duration: Config.animDurationShort
                                 }
                             }
                         }
                     }
-                }
 
-                // Fade in/out animation
-                opacity: OsdService.visible ? 1.0 : 0.0
+                    // Percentage
+                    Text {
+                        text: Math.round(OsdService.value * 100) + "%"
+                        font.family: Config.font
+                        font.pixelSize: Config.fontSizeNormal
+                        font.weight: Font.DemiBold
+                        color: OsdService.muted ? Config.mutedColor : Config.textColor
+                        horizontalAlignment: Text.AlignRight
+                        Layout.preferredWidth: 42
 
-                Behavior on opacity {
-                    NumberAnimation { duration: 200 }
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: Config.animDurationShort
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -3,84 +3,97 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
+import qs.config
 import qs.services
-import "../../components" as Components
+import "../../components/"
+import "../quickSettings/"
+import "../notifications/"
+import "../systemMonitor/"
+import "../calendar/"
 
 Scope {
+    id: root
+
+    readonly property int gapIn: 5
+    readonly property int gapOut: 15
+
     Variants {
         model: Quickshell.screens
 
-        delegate: Component {
-            PanelWindow {
-                id: bar
+        PanelWindow {
+            required property var modelData
 
-                required property var modelData
+            property bool enableAutoHide: StateService.get("bar.autoHide", false)
 
-                screen: modelData
+            WlrLayershell.namespace: "qs_modules"
+            implicitHeight: StateService.get("bar.height", 30)
+            color: "transparent"
+            screen: modelData
 
-                anchors {
-                    top: ThemeService.barPosition === "top"
-                    bottom: ThemeService.barPosition === "bottom"
-                    left: true
-                    right: true
+            exclusionMode: enableAutoHide ? ExclusionMode.Ignore : ExclusionMode.Normal
+            exclusiveZone: enableAutoHide ? 0 : height
+
+            anchors {
+                top: true
+                left: true
+                right: true
+            }
+
+            margins.top: {
+                if (WindowManagerService.anyModuleOpen || !enableAutoHide || mouseSensor.hovered)
+                    return 0;
+                return (-1 * (height - 1));
+            }
+
+            Behavior on margins.top {
+                NumberAnimation {
+                    duration: Config.animDuration
+                    easing.type: Easing.OutExpo
+                }
+            }
+
+            HoverHandler {
+                id: mouseSensor
+            }
+
+            Rectangle {
+                id: barContent
+                anchors.fill: parent
+                color: Config.backgroundTransparentColor
+
+                // --- LEFT ---
+                RowLayout {
+                    anchors.left: parent.left
+                    anchors.leftMargin: root.gapOut
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: root.gapIn
+
+                    SystemMonitorButton {}
+                    Workspaces {}
+                    MediaWidget {
+                        Layout.fillWidth: false
+                    }
                 }
 
-                height: ThemeService.barHeight
-                color: "transparent"
-                exclusionMode: ExclusionMode.Exclusive
+                // --- CENTER ---
+                RowLayout {
+                    anchors.centerIn: parent
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: root.gapIn
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: ThemeService.barBg
-                    radius: 0
+                    CalendarButton {}
+                }
 
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.leftMargin: ThemeService.paddingMedium
-                        anchors.rightMargin: ThemeService.paddingMedium
-                        spacing: ThemeService.paddingMedium
+                // --- RIGHT ---
+                RowLayout {
+                    anchors.right: parent.right
+                    anchors.rightMargin: root.gapOut
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: root.gapIn
 
-                        // Left modules
-                        RowLayout {
-                            Layout.alignment: Qt.AlignLeft
-                            spacing: ThemeService.paddingSmall
-
-                            Components.Workspaces {
-                                screen: bar.modelData
-                            }
-                        }
-
-                        // Center spacer
-                        Item {
-                            Layout.fillWidth: true
-                        }
-
-                        // Center modules
-                        Components.Clock {}
-
-                        // Right spacer
-                        Item {
-                            Layout.fillWidth: true
-                        }
-
-                        // Right modules
-                        RowLayout {
-                            Layout.alignment: Qt.AlignRight
-                            spacing: ThemeService.paddingSmall
-
-                            Components.Network {}
-
-                            Rectangle {
-                                width: 1
-                                height: 16
-                                color: ThemeService.border
-                            }
-
-                            Components.Audio {}
-
-                            Components.Battery {}
-                        }
-                    }
+                    TrayWidget {}
+                    QuickSettingsPill {}
+                    NotificationButton {}
                 }
             }
         }
