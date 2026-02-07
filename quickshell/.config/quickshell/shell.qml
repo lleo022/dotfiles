@@ -28,6 +28,7 @@ ShellRoot {
     // GLOBAL SHORTCUTS
     // =========================================================================
 
+    // Volume Up
     GlobalShortcut {
         name: "volume_up"
         description: "Increase volume"
@@ -38,6 +39,7 @@ ShellRoot {
         }
     }
 
+    // Volume Down
     GlobalShortcut {
         name: "volume_down"
         description: "Decrease volume"
@@ -48,6 +50,7 @@ ShellRoot {
         }
     }
 
+    // Volume Mute
     GlobalShortcut {
         name: "volume_mute"
         description: "Mute volume"
@@ -60,27 +63,32 @@ ShellRoot {
 }
 ```
 
+**Key points:**
+- Each `GlobalShortcut` block must have closing `}`
+- The `ShellRoot` must have closing `}`
+- Make sure there are no extra characters after the final `}`
+
 ---
 
-## **Step 4: Verify Directory Structure**
+## **Quick Syntax Check**
 
-Your structure after stowing should be:
+Count the braces:
 ```
-~/.config/quickshell/
-├── shell.qml
-├── services/
-│   ├── qmldir              # CRITICAL!
-│   ├── ThemeService.qml
-│   ├── AudioService.qml
-│   └── OsdService.qml
-├── modules/
-│   ├── bar/
-│   │   ├── Bar.qml
-│   │   ├── Workspaces.qml
-│   │   ├── Clock.qml
-│   │   ├── Audio.qml
-│   │   ├── Battery.qml
-│   │   └── Network.qml
-│   └── osd/
-│       └── OsdOverlay.qml
-└── state.json              # Created at runtime
+ShellRoot {              // 1 opening
+    Loader {             // 2 opening
+    }                    // 1 closing
+    Loader {             // 2 opening
+    }                    // 1 closing
+    GlobalShortcut {     // 2 opening
+        onPressed: {     // 3 opening
+        }                // 1 closing
+    }                    // 1 closing
+    GlobalShortcut {     // 2 opening
+        onPressed: {     // 3 opening
+        }                // 1 closing
+    }                    // 1 closing
+    GlobalShortcut {     // 2 opening
+        onPressed: {     // 3 opening
+        }                // 1 closing
+    }                    // 1 closing
+}                        // Final closing
