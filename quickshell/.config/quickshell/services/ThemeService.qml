@@ -47,15 +47,25 @@ QtObject {
     property string barPosition: "top"
 
     // =========================================================================
-    // STATE FILE WATCHER
+    // STATE FILE WATCHER - FIXED
     // =========================================================================
 
-    property FileView stateFile: FileView {
-        path: themeService.statePath
-
-        onContentChanged: {
-            themeService.loadState()
+    property var stateWatcher: Process {
+        running: true
+        command: ["inotifywait", "-m", "-e", "modify", themeService.statePath]
+        
+        stdout: SplitParser {
+            onRead: data => {
+                console.log("[ThemeService] State file changed, reloading...")
+                themeService.loadStateTimer.restart()
+            }
         }
+    }
+
+    property Timer loadStateTimer: Timer {
+        interval: 100
+        repeat: false
+        onTriggered: themeService.loadState()
     }
 
     // =========================================================================
@@ -63,14 +73,16 @@ QtObject {
     // =========================================================================
 
     function loadState() {
-        if (!stateFile.exists) {
+        const process = Process.exec("cat", [statePath])
+        
+        if (process.exitCode !== 0) {
             console.warn("[ThemeService] State file doesn't exist, creating default")
             saveState()
             return
         }
 
         try {
-            const data = JSON.parse(stateFile.text)
+            const data = JSON.parse(process.stdout)
             if (data.theme) {
                 loadTheme(data.theme)
             }
@@ -93,7 +105,8 @@ QtObject {
             }
         }
 
-        stateFile.text = JSON.stringify(data, null, 2)
+        const jsonStr = JSON.stringify(data, null, 2)
+        Process.exec("sh", ["-c", `echo '${jsonStr}' > ${statePath}`])
         console.log("[ThemeService] State saved")
     }
 
@@ -148,6 +161,9 @@ QtObject {
     // =========================================================================
 
     Component.onCompleted: {
+        // Create state directory if doesn't exist
+        Process.exec("mkdir", ["-p", Quickshell.env("HOME") + "/.config/quickshell"])
+        
         loadState()
     }
 }

@@ -4,8 +4,6 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import qs.services
-import "./modules/bar/"
-import "./modules/osd/"
 
 ShellRoot {
     id: root
@@ -15,7 +13,10 @@ ShellRoot {
     // =========================================================================
 
     // Bar - always active
-    Bar {}
+    Loader {
+        active: true
+        source: "./modules/bar/Bar.qml"
+    }
 
     // OSD - lazy loaded
     Loader {
@@ -27,7 +28,6 @@ ShellRoot {
     // GLOBAL SHORTCUTS
     // =========================================================================
 
-    // Volume Up
     GlobalShortcut {
         name: "volume_up"
         description: "Increase volume"
@@ -38,7 +38,6 @@ ShellRoot {
         }
     }
 
-    // Volume Down
     GlobalShortcut {
         name: "volume_down"
         description: "Decrease volume"
@@ -49,7 +48,6 @@ ShellRoot {
         }
     }
 
-    // Volume Mute
     GlobalShortcut {
         name: "volume_mute"
         description: "Mute volume"
@@ -60,3 +58,29 @@ ShellRoot {
         }
     }
 }
+```
+
+---
+
+## **Step 4: Verify Directory Structure**
+
+Your structure after stowing should be:
+```
+~/.config/quickshell/
+├── shell.qml
+├── services/
+│   ├── qmldir              # CRITICAL!
+│   ├── ThemeService.qml
+│   ├── AudioService.qml
+│   └── OsdService.qml
+├── modules/
+│   ├── bar/
+│   │   ├── Bar.qml
+│   │   ├── Workspaces.qml
+│   │   ├── Clock.qml
+│   │   ├── Audio.qml
+│   │   ├── Battery.qml
+│   │   └── Network.qml
+│   └── osd/
+│       └── OsdOverlay.qml
+└── state.json              # Created at runtime
