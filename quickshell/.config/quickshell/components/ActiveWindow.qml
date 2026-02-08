@@ -75,8 +75,15 @@ Item {
         anchors.fill: parent
 
         Text {
+            text: ""
+            color: Config.surface3Color
+            font.family: Config.font
+            font.pixelSize: Config.fontSizeNormal
+        }
+
+        Text {
             id: titleText
-            text: root.appName !== "" ? "  " + root.appName : ""
+            text: root.appName
             color: Config.surface3Color
             font.family: Config.font
             font.pixelSize: Config.fontSizeNormal
