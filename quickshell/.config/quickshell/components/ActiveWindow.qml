@@ -22,7 +22,7 @@ Item {
         // Split by common separators: " - ", " — ", " – "
         let parts = windowTitle.split(/\s+[-—–]\s+/);
         
-        // Return the last part (usually the app name)
+        // Return app name
         if (parts.length > 0) {
             return parts[parts.length - 1].trim();
         }
@@ -75,7 +75,7 @@ Item {
         anchors.fill: parent
 
         Text {
-            text: ""
+            text: ""
             color: Config.surface3Color
             font.family: Config.font
             font.pixelSize: Config.fontSizeNormal
