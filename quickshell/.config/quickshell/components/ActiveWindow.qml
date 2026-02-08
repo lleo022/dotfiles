@@ -14,6 +14,21 @@ Item {
     property bool windowExists: Hyprland.activeToplevel !== null
 
     readonly property string windowTitle: Hyprland.activeToplevel?.title ?? ""
+    
+    // Extract app name from title
+    readonly property string appName: {
+        if (!windowTitle) return "";
+        
+        // Split by common separators: " - ", " — ", " – "
+        let parts = windowTitle.split(/\s+[-—–]\s+/);
+        
+        // Return the last part (usually the app name)
+        if (parts.length > 0) {
+            return parts[parts.length - 1].trim();
+        }
+        
+        return windowTitle;
+    }
 
     // Logic to verify focus changes
     Connections {
@@ -61,7 +76,7 @@ Item {
 
         Text {
             id: titleText
-            text: root.windowTitle !== "" ? "  " + root.windowTitle : ""
+            text: root.appName !== "" ? "  " + root.appName : ""
             color: Config.surface3Color
             font.family: Config.font
             font.pixelSize: Config.fontSizeNormal
