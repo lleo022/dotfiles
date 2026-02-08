@@ -84,9 +84,10 @@ Scope {
                     anchors.leftMargin: root.gapOut
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: root.gapIn
-
+                    
                     SystemMonitorButton {}
-                    Workspaces {}
+                    CalendarButton {}
+                    ActiveWindow {}
                 }
 
                 // --- CENTER ---
@@ -95,7 +96,7 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: root.gapIn
 
-                    CalendarButton {}
+                    Workspaces {}
                 }
 
                 // --- RIGHT ---
