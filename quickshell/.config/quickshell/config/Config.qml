@@ -17,7 +17,7 @@ Singleton {
     // PALETTE (from ThemeService — defined in .data/themes/<name>.json)
     // ========================================================================
     readonly property color backgroundColor: ThemeService.color("background", "#1a1b26")
-    readonly property real backgroundOpacity: getState("opacity.background", 0.9)
+    readonly property real backgroundOpacity: getState("opacity.background", 1)
     readonly property color backgroundTransparentColor: Qt.alpha(backgroundColor, backgroundOpacity)
     readonly property color surface0Color: ThemeService.color("surface0", "#24283b")
     readonly property color surface1Color: ThemeService.color("surface1", "#292e42")
