@@ -82,7 +82,7 @@ QsPopupWindow {
                 size: 32
                 icon: NotificationService.dndEnabled ? "󰂛" : "󰂚"
                 iconSize: 14
-                text: "DND"
+                text: "Do Not Disturb"
                 baseColor: NotificationService.dndEnabled ? Config.warningColor : Config.surface1Color
                 hoverColor: NotificationService.dndEnabled ? Config.warningColor : Config.surface2Color
                 textColor: NotificationService.dndEnabled ? Config.textReverseColor : Config.subtextColor
