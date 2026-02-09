@@ -43,13 +43,20 @@ Singleton {
 
     // Icon logic here.
     function getBatteryIcon() {
-        if (state === UPowerDeviceState.Charging) return "󰂄"
+        // Error or no battery found
+        if (!hasBattery || state === UPowerDeviceState.Unknown || state === UPowerDeviceState.Empty) return "󰂃"
 
+        // Charging state
+        if (state === UPowerDeviceState.Charging) return "󰂄"
+    
+        // Discharging state
         const p = percentage
-        if (p >= 90) return "󰁹"
-        if (p >= 60) return "󰂀"
-        if (p >= 40) return "󰁾"
-        if (p >= 10) return "󰁼"
-        return "󰁺"
+        const level = Math.floor(p / 10) * 10;
+        const iconSet = {
+            100: "󰁹", 90: "󰁹", 80: "󰂂", 70: "󰂁",60: "󰂀", 
+            50: "󰁿", 40: "󰁾", 30: "󰁽", 20: "󰁼", 10: "󰁻", 0: "󰁺"
+        };
+        return iconSet[level] || "󰁺";
     }
+
 }
