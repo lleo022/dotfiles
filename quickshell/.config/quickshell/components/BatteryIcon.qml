@@ -19,7 +19,7 @@ Item {
 
     // Size
     property int bodyWidth: 26
-    property int bodyHeight: 16
+    property int bodyHeight: 14
     property int batteryRadius: 2
 
 
