@@ -1,5 +1,5 @@
 import QtQuick
-import qs.Configs
+import qs.config
 
 Rectangle {
     color: "transparent"
