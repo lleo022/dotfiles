@@ -2,7 +2,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import qs.config
-import qs.services
 import "../../components/"
 
 BarButton {
@@ -34,14 +33,6 @@ BarButton {
         }
         // Battery Icon and Percentages
         BatteryIcon {
-            color: iconsLayout.iconColor
-        }
-        Text {
-            visible: BatteryService.hasBattery
-            text: BatteryService.percentage + "%"
-            font.family: Config.font
-            font.pixelSize: Config.fontSizeSmall
-            font.bold: true
             color: iconsLayout.iconColor
         }
     }
