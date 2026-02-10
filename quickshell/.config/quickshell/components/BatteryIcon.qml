@@ -7,6 +7,8 @@ import qs.config
 Item {
     id: root
 
+    property color color: Config.textColor
+
     // Battery data
     readonly property bool charging: BatteryService.isCharging
     readonly property real percentage: BatteryService.percentage / 100.0
@@ -40,10 +42,7 @@ Item {
         border.width: 2
         border.color: percentage <= 0.2 && !charging
             ? Config.errorColor
-            : Qt.rgba(Config.textColor.r,
-                      Config.textColor.g,
-                      Config.textColor.b,
-                      0.5)
+            : Qt.rgba(root.color.r, root.color.g, root.color.b, 0.5)
 
         anchors.verticalCenter: parent.verticalCenter
 
