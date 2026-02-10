@@ -3,85 +3,75 @@ import QtQuick
 import QtQuick.Layouts
 import qs.services
 import qs.config
-import "../../components/"
 
 Item {
     id: root
 
-    // Battery data (normalized to 0–1)
-    readonly property bool batCharging: BatteryService.isCharging
-    readonly property real batPercentage: BatteryService.percentage / 100.0
+    // Battery data
+    readonly property bool charging: BatteryService.isCharging
+    readonly property real percentage: BatteryService.percentage / 100.0
 
     // Animation helper
-    property real chargeFillIndex: batPercentage * 100
+    property real chargeFillIndex: percentage * 100
 
-    // Sizing (taskbar-friendly)
-    property int widthBattery: 26
-    property int heightBattery: 12
+    // Size (taskbar friendly)
+    property int bodyWidth: 26
+    property int bodyHeight: 12
 
     visible: BatteryService.hasBattery
-
-    implicitWidth: widthBattery + 4
-    implicitHeight: heightBattery
+    implicitWidth: bodyWidth + 4
+    implicitHeight: bodyHeight
 
     Layout.alignment: Qt.AlignVCenter
 
-    onBatChargingChanged: {
-        if (batCharging)
-            chargeFillIndex = batPercentage * 100
+    onChargingChanged: {
+        if (charging)
+            chargeFillIndex = percentage * 100
     }
 
     // Battery body
-    StyledRect {
-        id: batteryBody
+    Rectangle {
+        id: body
 
-        implicitWidth: root.widthBattery
-        implicitHeight: root.heightBattery
-        clip: true
+        width: bodyWidth
+        height: bodyHeight
+        radius: Config.radiusSmall
         color: "transparent"
-        radius: 3
+        border.width: 2
+        border.color: percentage <= 0.2 && !charging
+            ? Config.errorColor
+            : Qt.rgba(Config.textColor.r,
+                      Config.textColor.g,
+                      Config.textColor.b,
+                      0.5)
 
-        anchors {
-            left: parent.left
-            verticalCenter: parent.verticalCenter
-        }
-
-        border {
-            width: 2
-            color: batPercentage <= 0.2 && !batCharging
-                ? Config.errorColor
-                : Qt.rgba(Config.textColor.r, Config.textColor.g, Config.textColor.b, 0.5)
-        }
+        anchors.verticalCenter: parent.verticalCenter
 
         // Battery fill
-        StyledRect {
-            anchors {
-                left: parent.left
-                leftMargin: 2
-                top: parent.top
-                topMargin: 2
-                bottom: parent.bottom
-                bottomMargin: 2
-            }
+        Rectangle {
+            id: fill
 
-            implicitWidth: batCharging
+            x: 2
+            y: 2
+            height: parent.height - 4
+            width: charging
                 ? (parent.width - 4) * (chargeFillIndex / 100.0)
-                : (parent.width - 4) * batPercentage
+                : (parent.width - 4) * percentage
 
             radius: parent.radius - 2
 
             color: {
-                if (batCharging)
+                if (charging)
                     return Config.successColor
-                if (batPercentage <= 0.2)
+                if (percentage <= 0.2)
                     return Config.errorColor
-                if (batPercentage <= 0.5)
-                    return Config.warningColor ?? Config.accentColor
+                if (percentage <= 0.5)
+                    return Config.warningColor
                 return Config.textColor
             }
 
-            Behavior on implicitWidth {
-                enabled: !batCharging
+            Behavior on width {
+                enabled: !charging
                 NumberAnimation {
                     duration: Config.animDuration
                 }
@@ -90,27 +80,26 @@ Item {
     }
 
     // Battery tip
-    StyledRect {
-        implicitWidth: 2
-        implicitHeight: 5
+    Rectangle {
+        width: 2
+        height: 5
+        radius: 1
 
-        anchors {
-            left: batteryBody.right
-            leftMargin: 0.5
-            verticalCenter: parent.verticalCenter
-        }
+        anchors.left: body.right
+        anchors.leftMargin: 1
+        anchors.verticalCenter: parent.verticalCenter
 
-        color: batPercentage <= 0.2 && !batCharging
+        color: percentage <= 0.2 && !charging
             ? Config.errorColor
-            : Qt.rgba(Config.textColor.r, Config.textColor.g, Config.textColor.b, 0.5)
-
-        topRightRadius: 1
-        bottomRightRadius: 1
+            : Qt.rgba(Config.textColor.r,
+                      Config.textColor.g,
+                      Config.textColor.b,
+                      0.5)
     }
 
     // Charging animation
     SequentialAnimation {
-        running: batCharging
+        running: charging
         loops: Animation.Infinite
 
         PauseAnimation { duration: Config.animDuration }
@@ -118,7 +107,7 @@ Item {
         NumberAnimation {
             target: root
             property: "chargeFillIndex"
-            from: batPercentage * 100
+            from: percentage * 100
             to: 100
             duration: Config.animDuration * 2
             easing.type: Easing.Linear
@@ -130,13 +119,11 @@ Item {
             target: root
             property: "chargeFillIndex"
             from: 100
-            to: batPercentage * 100
+            to: percentage * 100
             duration: Config.animDuration
             easing.type: Easing.Linear
         }
 
-        onStopped: {
-            chargeFillIndex = batPercentage * 100
-        }
+        onStopped: chargeFillIndex = percentage * 100
     }
 }
