@@ -24,13 +24,23 @@ BarButton {
             }
         }
 
+        // Wifi Icon
         WifiIcon {
             color: iconsLayout.iconColor
         }
         BluetoothIcon {
             color: iconsLayout.iconColor
         }
+        // Battery Icon and Percentages
         BatteryIcon {
+            color: iconsLayout.iconColor
+        }
+        Text {
+            visible: BatteryService.hasBattery
+            text: BatteryService.percentage + "%"
+            font.family: Config.font
+            font.pixelSize: Config.fontSizeSmall
+            font.bold: true
             color: iconsLayout.iconColor
         }
     }

@@ -47,7 +47,7 @@ Singleton {
         if (!hasBattery || state === UPowerDeviceState.Unknown || state === UPowerDeviceState.Empty) return "󰂃"
 
         // Charging state
-        if (state === UPowerDeviceState.Charging) return "󰂄"
+        if (state === UPowerDeviceState.Charging || state === UPowerDeviceState.FullyCharged) return "󰂄"
     
         // Discharging state
         const p = percentage

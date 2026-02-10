@@ -25,8 +25,9 @@ Text {
             return Config.successColor;
 
         if (BatteryService.percentage < 20)
-            return Config.warningColor;
+            return Config.errorColor;
 
         return Config.textColor;
     }
 }
+
