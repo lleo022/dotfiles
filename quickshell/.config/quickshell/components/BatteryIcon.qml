@@ -19,7 +19,7 @@ Item {
 
     // Size
     property int bodyWidth: 26
-    property int bodyHeight: 12
+    property int bodyHeight: 16
     property int batteryRadius: 2
 
 
@@ -42,7 +42,7 @@ Item {
         height: bodyHeight
         radius: batteryRadius
         color: "transparent"
-        border.width: 0.75
+        border.width: 1
         border.color: percentage <= 0.2 && !charging
             ? Config.errorColor
             : Qt.rgba(root.color.r, root.color.g, root.color.b, 0.5)
