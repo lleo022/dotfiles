@@ -7,6 +7,7 @@ import qs.config
 Item {
     id: root
 
+    // Graphics
     property color color: Config.textColor
 
     // Battery data
@@ -16,9 +17,11 @@ Item {
     // Animation helper
     property real chargeFillIndex: percentage * 100
 
-    // Size (taskbar friendly)
+    // Size
     property int bodyWidth: 26
     property int bodyHeight: 12
+    property int batteryRadius: 2
+
 
     visible: BatteryService.hasBattery
     implicitWidth: bodyWidth + 4
@@ -37,9 +40,9 @@ Item {
 
         width: bodyWidth
         height: bodyHeight
-        radius: Config.radiusSmall
+        radius: batteryRadius
         color: "transparent"
-        border.width: 2
+        border.width: 0.75
         border.color: percentage <= 0.2 && !charging
             ? Config.errorColor
             : Qt.rgba(root.color.r, root.color.g, root.color.b, 0.5)
@@ -57,7 +60,7 @@ Item {
                 ? (parent.width - 4) * (chargeFillIndex / 100.0)
                 : (parent.width - 4) * percentage
 
-            radius: parent.radius - 2
+            radius: batteryRadius - 2
 
             color: {
                 if (charging)
@@ -75,6 +78,23 @@ Item {
                     duration: Config.animDuration
                 }
             }
+        }
+
+        // Battery text
+        Text {
+            anchors.centerIn: parent
+            text: Math.round(percentage * 100)
+
+            font.family: Config.font
+            font.pixelSize: parent.height * 0.65
+            font.bold: true
+
+            color: percentage <= 0.5
+                ? Config.textColor
+                : Config.textReverseColor
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
         }
     }
 
