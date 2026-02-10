@@ -19,3 +19,4 @@ TrayMenu 1.0 TrayMenu.qml
 TrayWidget 1.0 TrayWidget.qml
 WifiIcon 1.0 WifiIcon.qml
 Workspaces 1.0 Workspaces.qml
+StyledRect 1.0 StyledRect.qml
