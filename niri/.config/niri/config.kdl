@@ -267,12 +267,9 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// Disable Waybar and launch your Noctalia fork + XWayland support
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "qs" "-c" "~/projects/noctalia-shell"
-
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+spawn-sh-at-startup "qs -c ~/projects/noctalia-shell"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -357,7 +354,7 @@ binds {
     // Open app launcher
     Mod+Space hotkey-overlay-title="Run an Application: rofi" { spawn "rofi"; }
     // Lock Screen
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+Shift+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -607,7 +604,7 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E { quit; }
+    Mod+Shift+M { quit; }
     Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
