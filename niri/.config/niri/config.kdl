@@ -629,3 +629,6 @@ binds {
     Mod+Alt+S   { screenshot-window; } // Focused window
    
 }
+
+include "./noctalia.kdl"
+
