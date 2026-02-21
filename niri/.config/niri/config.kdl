@@ -357,7 +357,8 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: Kitty" { spawn "kitty"; }
     // Open app launcher
     Mod+Space hotkey-overlay-title="Run App Launcher" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call launcher toggle"; }
-    
+    // Open wallpaper selector
+    Mod+Shift+W { spawn-sh "qs -c ~/projects/noctalia-shell ipc call wallpaper toggle"; }
 
     // --- System ---
     // Lock Screen
