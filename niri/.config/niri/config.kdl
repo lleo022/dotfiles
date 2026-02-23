@@ -352,7 +352,7 @@ binds {
     Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call launcher toggle"; }
     Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call wallpaper toggle"; }
-    Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "qs -c noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
+    Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
 
 
     // #"System"
