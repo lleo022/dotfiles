@@ -347,33 +347,29 @@ window-rule {
 // --- KEYBINDS ---
 binds {
 
-    // --- Hotkey Overlay ---
-    // Mod-Shift-/ AKA Mod-? | Shows a list of important hotkeys.
-    // Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+Shift+Slash { spawn-sh "qs -c noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
-
-
+    
     // #"Applications"
-    Mod+Return hotkey-overlay-title="Terminal: Kitty" { spawn "kitty"; }
+    Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call launcher toggle"; }
     Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call wallpaper toggle"; }
+    Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "qs -c noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
 
 
     // #"System"
-    Mod+Escape allow-inhibiting=false hotkey-overlay-title="Lock Screen" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call lockScreen lock"; }
+    Mod+Escape hotkey-overlay-title="Lock Screen" allow-inhibiting=false { spawn-sh "qs -c ~/projects/noctalia-shell ipc call lockScreen lock"; }
     Mod+M hotkey-overlay-title="Power Menu" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call sessionMenu toggle"; }
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+M hotkey-overlay-title="Quit Niri" { quit; }
-    Ctrl+Alt+Delete hotkey-overlay-title="Quit Niri" { quit; }
+    Mod+Shift+M hotkey-overlay-title="Quit" { quit; }
+    Ctrl+Alt+Delete hotkey-overlay-title="Quit" { quit; }
     // Powers off the monitors. To turn them back on, do any input like moving the mouse or pressing a key.
     Mod+Shift+P hotkey-overlay-title="Power Off Monitors" { power-off-monitors; }
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title="Toggle Screen Reader" { spawn-sh "pkill orca || exec orca"; }
+    // Mod+Alt+S allow-when-locked=true hotkey-overlay-title="Toggle Screen Reader" { spawn-sh "pkill orca || exec orca"; }
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
     // so they may, for example, forward the key presses as-is to a remote machine.
     // It's a good idea to bind an escape hatch to toggle the inhibitor,
     // so a buggy application can't hold your session hostage.
-    Mod+Shift+Escape allow-inhibiting=false hotkey-overlay-title="Toggle Shortcut Inhibit" { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+Escape hotkey-overlay-title="Toggle Shortcut Inhibit" allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     // The allow-inhibiting=false property can be applied to other binds as well,
     // which ensures niri always processes them, even when an inhibitor is active.
     
@@ -400,8 +396,8 @@ binds {
 
 
     // #"Window Management"
-    Mod+Q repeat=false hotkey-overlay-title="Close Window" { close-window; }
-    Mod+F hotkey-overlay-title="Maximize Column" { maximize-column; }
+    Mod+Q hotkey-overlay-title="Close Window" repeat=false { close-window; }
+    Mod+F hotkey-overlay-title="Maximize" { maximize-column; }
     Mod+Shift+F hotkey-overlay-title="Fullscreen" { fullscreen-window; }
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
@@ -454,15 +450,15 @@ binds {
     // Mod+Shift+Space { switch-layout "prev"; }
 
 
-    // #"Navigation (Focus)"
-    Mod+Tab repeat=false hotkey-overlay-title="Toggle Overview" { toggle-overview; }
-    Mod+Up    { focus-window-up; }
+    // #"Focus Navigation (Arrows + IJKL)"
+    Mod+Tab   hotkey-overlay-title="Toggle Overview" repeat=false { toggle-overview; }
+    Mod+Up    hotkey-overlay-title=null { focus-window-up; }
     Mod+I     { focus-window-up; }
-    Mod+Down  { focus-window-down; }
+    Mod+Down  hotkey-overlay-title=null { focus-window-down; }
     Mod+K     { focus-window-down; }
-    Mod+Left  { focus-column-left; }
+    Mod+Left  hotkey-overlay-title=null { focus-column-left; }
     Mod+J     { focus-column-left; }
-    Mod+Right { focus-column-right; }
+    Mod+Right hotkey-overlay-title=null { focus-column-right; }
     Mod+L     { focus-column-right; }
     Mod+Home  { focus-column-first; }
     Mod+End   { focus-column-last; }
@@ -473,14 +469,14 @@ binds {
     // Mod+K { focus-window-or-workspace-down; }
 
 
-    // #"Moving Windows"
-    Mod+Shift+Up    { move-window-up; }
+    // #"Moving Windows (Arrows + IJKL)"
+    Mod+Shift+Up    hotkey-overlay-title=null { move-window-up; }
     Mod+Shift+I     { move-window-up; }
-    Mod+Shift+Down  { move-window-down; }
+    Mod+Shift+Down  hotkey-overlay-title=null { move-window-down; }
     Mod+Shift+K     { move-window-down; }
-    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Left  hotkey-overlay-title=null { move-column-left; }
     Mod+Shift+J     { move-column-left; }
-    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Right hotkey-overlay-title=null { move-column-right; }
     Mod+Shift+L     { move-column-right; }
 
     Mod+Shift+Home  { move-column-to-first; }
@@ -536,12 +532,12 @@ binds {
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
     Mod+Shift+3 { move-column-to-workspace 3; }
-    Mod+Shift+4 { move-column-to-workspace 4; }
-    Mod+Shift+5 { move-column-to-workspace 5; }
-    Mod+Shift+6 { move-column-to-workspace 6; }
-    Mod+Shift+7 { move-column-to-workspace 7; }
-    Mod+Shift+8 { move-column-to-workspace 8; }
-    Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+4 hotkey-overlay-title=null { move-column-to-workspace 4; }
+    Mod+Shift+5 hotkey-overlay-title=null { move-column-to-workspace 5; }
+    Mod+Shift+6 hotkey-overlay-title=null { move-column-to-workspace 6; }
+    Mod+Shift+7 hotkey-overlay-title=null { move-column-to-workspace 7; }
+    Mod+Shift+8 hotkey-overlay-title=null { move-column-to-workspace 8; }
+    Mod+Shift+9 hotkey-overlay-title=null { move-column-to-workspace 9; }
     // Reorder Workspaces
     Mod+Shift+Page_Up   { move-workspace-up; }
     Mod+Shift+Page_Down { move-workspace-down; }
