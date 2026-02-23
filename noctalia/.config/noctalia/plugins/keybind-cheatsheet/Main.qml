@@ -102,7 +102,7 @@ Item {
     parseDepthCounter = 0;
   }
 
-  // Refresh function - accessible from mainInstance
+  // FIX 1: Always force a full re-parse on refresh, never use cache
   function refresh() {
     if (!pluginApi) {
       return;
@@ -111,6 +111,10 @@ Item {
     // Reset parserStarted to allow re-parsing
     parserStarted = false;
     isCurrentlyParsing = false;
+
+    // Clear cached data so re-parse is guaranteed
+    pluginApi.pluginSettings.cheatsheetData = [];
+    pluginApi.pluginSettings.detectedCompositor = "";
 
     // Now run parser
     parserStarted = true;
@@ -379,6 +383,7 @@ Item {
       // If we're not currently parsing a multiline bind
       if (currentBindKey === null) {
         // Try to match a keybind start: Mod+Key or Mod+Key attributes { or Mod+Key { action; }
+        // FIX 2: Regex now handles unquoted attribute values (=false, =true, =150, etc.)
         var bindStartMatch = line.match(/^([A-Za-z0-9_+]+)\s*((?:[a-z\-]+=(?:"[^"]*"|\S+)\s*)*)\{(.*)$/);
 
         if (bindStartMatch) {
@@ -423,6 +428,15 @@ Item {
 
       bindsFoundInFile++;
       var action = currentBindAction.trim().replace(/;$/, "").trim();
+
+      // FIX 3: Skip binds explicitly marked hotkey-overlay-title=null
+      if (currentBindAttributes.includes("hotkey-overlay-title=null")) {
+        currentBindKey = null;
+        currentBindAttributes = "";
+        currentBindAction = "";
+        bindBraceDepth = 0;
+        return;
+      }
 
       var hotkeyTitle = null;
       var titleMatch = currentBindAttributes.match(/hotkey-overlay-title="([^"]+)"/);
