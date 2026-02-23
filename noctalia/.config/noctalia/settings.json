@@ -89,7 +89,7 @@
                     "iconColor": "none",
                     "id": "SystemMonitor",
                     "showCpuFreq": false,
-                    "showCpuTemp": false,
+                    "showCpuTemp": true,
                     "showCpuUsage": true,
                     "showDiskAvailable": false,
                     "showDiskUsage": false,
@@ -135,6 +135,9 @@
                     "id": "Tray",
                     "pinned": [
                     ]
+                },
+                {
+                    "id": "plugin:privacy-indicator"
                 },
                 {
                     "displayMode": "onhover",
