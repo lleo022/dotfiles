@@ -722,7 +722,7 @@ Item {
       if (line.length === 0) continue;
 
       // Parse: Mod+Key { action; }
-      var bindMatch = line.match(/^([A-Za-z0-9_+]+)\s*(?:[a-z\-]+=\S+\s*)*\{\s*([^}]+)\s*\}/);
+      var bindStartMatch = line.match(/^([A-Za-z0-9_+]+)\s*((?:[a-z\-]+=(?:"[^"]*"|\S+)\s*)*)\{(.*)$/);
 
       if (bindMatch) {
         var keyCombo = bindMatch[1];
