@@ -25,10 +25,6 @@
       "title": "Window Management",
       "binds": [
         {
-          "keys": "Super + Q",
-          "desc": "Close Window"
-        },
-        {
           "keys": "Super + F",
           "desc": "Maximize"
         },
@@ -91,10 +87,6 @@
       "title": "System",
       "binds": [
         {
-          "keys": "Super + Escape",
-          "desc": "Lock Screen"
-        },
-        {
           "keys": "Super + M",
           "desc": "Power Menu"
         },
@@ -156,10 +148,6 @@
     {
       "title": "Focus Navigation (Arrows + IJKL)",
       "binds": [
-        {
-          "keys": "Super + Tab",
-          "desc": "Toggle Overview"
-        },
         {
           "keys": "Super + I",
           "desc": "Focus Window Up"
