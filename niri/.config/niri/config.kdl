@@ -347,14 +347,14 @@ window-rule {
 // --- KEYBINDS ---
 binds {
 
-    // #"Applications"
+    // #"APPLICATIONS"
     Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call launcher toggle"; }
     Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call wallpaper toggle"; }
     Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
 
 
-    // #"System"
+    // #"SYSTEM"
     Mod+Escape allow-inhibiting=false hotkey-overlay-title="Lock Screen" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call lockScreen lock"; }
     Mod+M hotkey-overlay-title="Power Menu" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call sessionMenu toggle"; }
     // The quit action will show a confirmation dialog to avoid accidental exits.
@@ -394,7 +394,7 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title=null { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
 
-    // #"Window Management"
+    // #"WINDOW MANAGEMENT"
     Mod+Q repeat=false hotkey-overlay-title="Close Window" { close-window; }
     Mod+F hotkey-overlay-title="Maximize" { maximize-column; }
     Mod+Shift+F hotkey-overlay-title="Fullscreen" { fullscreen-window; }
@@ -417,7 +417,7 @@ binds {
     Mod+Period hotkey-overlay-title="Expel Window from Column" { expel-window-from-column; }
     
 
-    // #"Layout & Sizing"
+    // #"LAYOUT & SIZING"
     Mod+C hotkey-overlay-title="Center Column" { center-column; }
     Mod+Ctrl+C hotkey-overlay-title="Center Visible Columns" { center-visible-columns; }
     // Cycle through preset column widths (1/3, 1/2, 2/3).
@@ -449,7 +449,7 @@ binds {
     // Mod+Shift+Space { switch-layout "prev"; }
 
 
-    // #"Focus Navigation (Arrows + IJKL)"
+    // #"FOCUS NAVIGATION (Arrows + IJKL)"
     Mod+Tab   hotkey-overlay-title="Toggle Overview" repeat=false { toggle-overview; }
     Mod+Up    hotkey-overlay-title=null { focus-window-up; }
     Mod+I     hotkey-overlay-title="Focus Up" { focus-window-up; }
@@ -477,7 +477,7 @@ binds {
     // Mod+K { focus-window-or-workspace-down; }
 
 
-    // #"Moving Windows (Arrows + IJKL)"
+    // #"MOVING WINDOWS (Arrows + IJKL)"
     Mod+Shift+Up    hotkey-overlay-title=null { move-window-up; }
     Mod+Shift+I     hotkey-overlay-title="Move Up" { move-window-up; }
     Mod+Shift+Down  hotkey-overlay-title=null { move-window-down; }
@@ -523,7 +523,7 @@ binds {
     // ...
 
     
-    // #"Workspaces"
+    // #"WORKSPACES"
     // Focus workspace by index (best effort)
     Mod+1 hotkey-overlay-title="Workspace 1" { focus-workspace 1; }
     Mod+2 hotkey-overlay-title="Workspace 2" { focus-workspace 2; }
@@ -580,7 +580,7 @@ binds {
     // Mod+Shift+1 { move-window-to-workspace 1; }
 
 
-    // #"Screenshots"
+    // #"SCREENSHOTS"
     Mod+Shift+S hotkey-overlay-title="Screenshot"        { screenshot; }
     Mod+Ctrl+S  hotkey-overlay-title="Screenshot Screen" { screenshot-screen; }
     Mod+Alt+S   hotkey-overlay-title="Screenshot Window" { screenshot-window; }

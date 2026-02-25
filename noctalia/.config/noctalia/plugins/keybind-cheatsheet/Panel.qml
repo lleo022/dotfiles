@@ -284,6 +284,7 @@ Item {
         x: parent.width - implicitWidth
         text: itemData.title
         font.pointSize: 12
+        font.family: "JetBrains Mono"
         font.weight: Font.Bold
         color: Color.mPrimary
       }
@@ -323,6 +324,7 @@ Item {
               anchors.centerIn: parent
               text: modelData
               font.pointSize: modelData.length > 12 ? 8 : 9
+              font.family: "JetBrains Mono"
               font.weight: Font.Bold
               color: Color.mOnPrimary
             }
@@ -334,6 +336,7 @@ Item {
         Layout.alignment: Qt.AlignVCenter
         text: itemData.desc
         font.pointSize: 10
+        font.family: "JetBrains Mono"
         color: Color.mOnSurface
         elide: Text.ElideRight
       }
