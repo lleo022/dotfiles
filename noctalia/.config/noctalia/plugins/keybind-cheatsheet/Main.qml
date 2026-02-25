@@ -842,7 +842,7 @@ Item {
       "MOUSE_UP": "Scroll Up",
       "MOUSE:272": "Left Click",
       "MOUSE:273": "Right Click",
-      "MOUSE:274": "Middle Click"
+      "MOUSE:274": "Middle Click",
       // Mouse (for Niri)
       "WheelScrollUp": "Scroll Up",
       "WheelScrollDown": "Scroll Down",
