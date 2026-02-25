@@ -124,11 +124,11 @@ Item {
         if (catIndex >= categories.length) continue;
 
         var cat = categories[catIndex];
-        colHeight += 26; // Header
-        colHeight += cat.binds.length * 20; // Binds
+        colHeight += 30; // Header
+        colHeight += cat.binds.length * 23; // Binds
         if (i < catIndices.length - 1) {
-          colHeight += 6; // Spacer
-        }
+          colHeight += 8; // Spacer
+}
       }
 
       if (colHeight > maxColumnHeight) {
@@ -306,7 +306,7 @@ Item {
     id: bindComponent
     RowLayout {
       spacing: Style.marginS
-      height: 22
+      height: 25
       Layout.bottomMargin: 1
       Flow {
         Layout.preferredWidth: 220
