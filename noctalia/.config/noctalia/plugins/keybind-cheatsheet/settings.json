@@ -25,6 +25,10 @@
       "title": "Window Management",
       "binds": [
         {
+          "keys": "Super + Q",
+          "desc": "Close Window"
+        },
+        {
           "keys": "Super + F",
           "desc": "Maximize"
         },
@@ -87,6 +91,10 @@
       "title": "System",
       "binds": [
         {
+          "keys": "Super + Escape",
+          "desc": "Lock Screen"
+        },
+        {
           "keys": "Super + M",
           "desc": "Power Menu"
         },
@@ -101,6 +109,55 @@
         {
           "keys": "Super + Shift + P",
           "desc": "Power Off Monitors"
+        },
+        {
+          "keys": "Super + Shift + Escape",
+          "desc": "Toggle Shortcut Inhibit"
+        }
+      ]
+    },
+    {
+      "title": "-l 1.0",
+      "binds": [
+        {
+          "keys": "Vol Up",
+          "desc": "Run: wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
+        },
+        {
+          "keys": "Vol Down",
+          "desc": "Run: wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
+        },
+        {
+          "keys": "Mute",
+          "desc": "Run: wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        },
+        {
+          "keys": "Mic Mute",
+          "desc": "Run: wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        },
+        {
+          "keys": "Play",
+          "desc": "Run: playerctl play-pause"
+        },
+        {
+          "keys": "Stop",
+          "desc": "Run: playerctl stop"
+        },
+        {
+          "keys": "Prev",
+          "desc": "Run: playerctl previous"
+        },
+        {
+          "keys": "Next",
+          "desc": "Run: playerctl next"
+        },
+        {
+          "keys": "Bright Up",
+          "desc": "Run: brightnessctl"
+        },
+        {
+          "keys": "Bright Down",
+          "desc": "Run: brightnessctl"
         }
       ]
     },
@@ -149,16 +206,36 @@
       "title": "Focus Navigation (Arrows + IJKL)",
       "binds": [
         {
+          "keys": "Super + Tab",
+          "desc": "Toggle Overview"
+        },
+        {
+          "keys": "Super + Up",
+          "desc": "Focus Window Up"
+        },
+        {
           "keys": "Super + I",
           "desc": "Focus Window Up"
+        },
+        {
+          "keys": "Super + Down",
+          "desc": "Focus Window Down"
         },
         {
           "keys": "Super + K",
           "desc": "Focus Window Down"
         },
         {
+          "keys": "Super + Left",
+          "desc": "Focus Column Left"
+        },
+        {
           "keys": "Super + J",
           "desc": "Focus Column Left"
+        },
+        {
+          "keys": "Super + Right",
+          "desc": "Focus Column Right"
         },
         {
           "keys": "Super + L",
@@ -178,16 +255,32 @@
       "title": "Moving Windows (Arrows + IJKL)",
       "binds": [
         {
+          "keys": "Super + Shift + Up",
+          "desc": "Move Window Up"
+        },
+        {
           "keys": "Super + Shift + I",
           "desc": "Move Window Up"
+        },
+        {
+          "keys": "Super + Shift + Down",
+          "desc": "Move Window Down"
         },
         {
           "keys": "Super + Shift + K",
           "desc": "Move Window Down"
         },
         {
+          "keys": "Super + Shift + Left",
+          "desc": "Move Column Left"
+        },
+        {
           "keys": "Super + Shift + J",
           "desc": "Move Column Left"
+        },
+        {
+          "keys": "Super + Shift + Right",
+          "desc": "Move Column Right"
         },
         {
           "keys": "Super + Shift + L",
@@ -239,6 +332,26 @@
           "desc": "Focus Workspace 4"
         },
         {
+          "keys": "Super + 5",
+          "desc": "Focus Workspace 5"
+        },
+        {
+          "keys": "Super + 6",
+          "desc": "Focus Workspace 6"
+        },
+        {
+          "keys": "Super + 7",
+          "desc": "Focus Workspace 7"
+        },
+        {
+          "keys": "Super + 8",
+          "desc": "Focus Workspace 8"
+        },
+        {
+          "keys": "Super + 9",
+          "desc": "Focus Workspace 9"
+        },
+        {
           "keys": "Super + Ctrl + Page_Up",
           "desc": "Move Column To Workspace Up"
         },
@@ -271,6 +384,26 @@
           "desc": "Move Column To Workspace 4"
         },
         {
+          "keys": "Super + Shift + 5",
+          "desc": "Move Column To Workspace 5"
+        },
+        {
+          "keys": "Super + Shift + 6",
+          "desc": "Move Column To Workspace 6"
+        },
+        {
+          "keys": "Super + Shift + 7",
+          "desc": "Move Column To Workspace 7"
+        },
+        {
+          "keys": "Super + Shift + 8",
+          "desc": "Move Column To Workspace 8"
+        },
+        {
+          "keys": "Super + Shift + 9",
+          "desc": "Move Column To Workspace 9"
+        },
+        {
           "keys": "Super + Shift + Page_Up",
           "desc": "Move Workspace Up"
         },
@@ -291,6 +424,22 @@
     {
       "title": "Mouse & Scroll",
       "binds": [
+        {
+          "keys": "Super + WheelScrollUp",
+          "desc": "Focus Workspace Up"
+        },
+        {
+          "keys": "Super + WheelScrollDown",
+          "desc": "Focus Workspace Down"
+        },
+        {
+          "keys": "Super + Ctrl + WheelScrollUp",
+          "desc": "Move Column To Workspace Up"
+        },
+        {
+          "keys": "Super + Ctrl + WheelScrollDown",
+          "desc": "Move Column To Workspace Down"
+        },
         {
           "keys": "Super + WheelScrollRight",
           "desc": "Focus Column Right"
