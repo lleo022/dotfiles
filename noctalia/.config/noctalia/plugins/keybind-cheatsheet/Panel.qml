@@ -283,7 +283,7 @@ Item {
         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
         x: parent.width - implicitWidth
         text: itemData.title
-        font.pointSize: 11
+        font.pointSize: 12
         font.weight: Font.Bold
         color: Color.mPrimary
       }
@@ -322,7 +322,7 @@ Item {
               id: keyText
               anchors.centerIn: parent
               text: modelData
-              font.pointSize: modelData.length > 12 ? 7 : 8
+              font.pointSize: modelData.length > 12 ? 8 : 9
               font.weight: Font.Bold
               color: Color.mOnPrimary
             }
@@ -333,7 +333,7 @@ Item {
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignVCenter
         text: itemData.desc
-        font.pointSize: 9
+        font.pointSize: 10
         color: Color.mOnSurface
         elide: Text.ElideRight
       }

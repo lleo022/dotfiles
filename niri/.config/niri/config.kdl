@@ -459,6 +459,10 @@ binds {
     Mod+J     hotkey-overlay-title="Focus Left" { focus-column-left; }
     Mod+Right hotkey-overlay-title=null { focus-column-right; }
     Mod+L     hotkey-overlay-title="Focus Right" { focus-column-right; }
+    
+    Mod+Home  hotkey-overlay-title="Focus First" { focus-column-first; }
+    Mod+End   hotkey-overlay-title="Focus Last" { focus-column-last; }
+
     // Scrolling
     Mod+WheelScrollRight           hotkey-overlay-title=null { focus-column-right; }
     Mod+WheelScrollLeft            hotkey-overlay-title=null { focus-column-left; }
@@ -466,9 +470,6 @@ binds {
     Mod+Shift+TouchpadScrollUp     hotkey-overlay-title=null { focus-column-left; }
     Mod+Shift+WheelScrollDown      hotkey-overlay-title="Focus Right" { focus-column-right; }
     Mod+Shift+TouchpadScrollDown   hotkey-overlay-title=null { focus-column-right; }
-
-    Mod+Home  hotkey-overlay-title="Focus First" { focus-column-first; }
-    Mod+End   hotkey-overlay-title="Focus Last" { focus-column-last; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
@@ -485,6 +486,10 @@ binds {
     Mod+Shift+J     hotkey-overlay-title="Move Left" { move-column-left; }
     Mod+Shift+Right hotkey-overlay-title=null { move-column-right; }
     Mod+Shift+L     hotkey-overlay-title="Move Right" { move-column-right; }
+    
+    Mod+Shift+Home  hotkey-overlay-title="Move to First" { move-column-to-first; }
+    Mod+Shift+End   hotkey-overlay-title="Move to Last" { move-column-to-last; }
+    
     // Scrolling
     Mod+Ctrl+WheelScrollRight         hotkey-overlay-title=null { move-column-right; }
     Mod+Ctrl+WheelScrollLeft          hotkey-overlay-title=null { move-column-left; }
@@ -492,9 +497,6 @@ binds {
     Mod+Ctrl+Shift+TouchpadScrollUp   hotkey-overlay-title=null { move-column-left; }
     Mod+Ctrl+Shift+WheelScrollDown    hotkey-overlay-title="Move Right" { move-column-right; }
     Mod+Ctrl+Shift+TouchpadScrollDown hotkey-overlay-title=null { move-column-right; }
-
-    Mod+Shift+Home  hotkey-overlay-title="Move to First" { move-column-to-first; }
-    Mod+Shift+End   hotkey-overlay-title="Move to Last" { move-column-to-last; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+J { move-window-down-or-to-workspace-down; }
