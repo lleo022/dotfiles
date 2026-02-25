@@ -347,7 +347,6 @@ window-rule {
 // --- KEYBINDS ---
 binds {
 
-    
     // #"Applications"
     Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call launcher toggle"; }

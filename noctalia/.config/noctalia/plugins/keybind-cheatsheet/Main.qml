@@ -429,8 +429,9 @@ Item {
       bindsFoundInFile++;
       var action = currentBindAction.trim().replace(/;$/, "").trim();
 
-      // FIX 3: Skip binds explicitly marked hotkey-overlay-title=null
-      if (currentBindAttributes.includes("hotkey-overlay-title=null")) {
+      // FIX 3: Skip binds explicitly marked hotkey-overlay-title=null OR cheatsheet-hide=true
+      if (currentBindAttributes.includes("hotkey-overlay-title=null") || 
+          currentBindAttributes.includes("cheatsheet-hide=true")) {
         currentBindKey = null;
         currentBindAttributes = "";
         currentBindAction = "";
