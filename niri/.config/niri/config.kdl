@@ -349,14 +349,14 @@ binds {
 
     // #"APPLICATIONS"
     Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
-    Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
-    Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "qs -c noctalia-shell ipc call wallpaper toggle"; }
-    Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "qs -c noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
+    Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "qs -c ~/noctalia-shell ipc call launcher toggle"; }
+    Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "qs -c ~/noctalia-shell ipc call wallpaper toggle"; }
+    Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "qs -c ~/noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
 
 
     // #"SYSTEM"
-    Mod+Escape allow-inhibiting=false hotkey-overlay-title="Lock Screen" { spawn-sh "qs -c ~/projects/noctalia-shell ipc call lockScreen lock"; }
-    Mod+M hotkey-overlay-title="Power Menu" { spawn-sh "qs -c noctalia-shell ipc call sessionMenu toggle"; }
+    Mod+Escape allow-inhibiting=false hotkey-overlay-title="Lock Screen" { spawn-sh "qs -c ~/noctalia-shell ipc call lockScreen lock"; }
+    Mod+M hotkey-overlay-title="Power Menu" { spawn-sh "qs -c ~/noctalia-shell ipc call sessionMenu toggle"; }
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+M hotkey-overlay-title="Quit" { quit; }
     Ctrl+Alt+Delete hotkey-overlay-title="Quit" { quit; }
