@@ -376,7 +376,7 @@ binds {
     // --- Hardware Keys ---
     // Volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    // "-l 1.0" limits the volume to 100%.
+    // `-l 1.0` limits the volume to 100%.
     XF86AudioRaiseVolume allow-when-locked=true hotkey-overlay-title=null { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true hotkey-overlay-title=null { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute        allow-when-locked=true hotkey-overlay-title=null { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
@@ -390,8 +390,8 @@ binds {
     XF86AudioNext        allow-when-locked=true hotkey-overlay-title=null { spawn-sh "playerctl next"; }
 
     // Brightness key mappings for brightnessctl.
-    XF86MonBrightnessUp   allow-when-locked=true hotkey-overlay-title=null { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title=null { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp   allow-when-locked=true hotkey-overlay-title=null { spawn-sh "brightnessctl -d amdgpu_bl2 set +10%"; }
+    XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title=null { spawn-sh "brightnessctl -d amdgpu_bl2 set 10%-"; }
 
 
     // #"WINDOW MANAGEMENT"
