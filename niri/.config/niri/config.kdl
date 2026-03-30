@@ -271,10 +271,15 @@ spawn-at-startup "xwayland-satellite"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 spawn-sh-at-startup "qs -c ~/noctalia-shell"
 spawn-sh-at-startup "xremap ~/.config/xremap/config.yml"
+spawn-sh-at-startup "gnome-keyring-daemon --start --components=secrets,ssh,pkcs11"
 
 hotkey-overlay {
     // Comment/uncomment this line to enable/disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup
+}
+
+environment {
+    GNOME_KEYRING_CONTROL "/run/user/1000/keyring"
 }
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
