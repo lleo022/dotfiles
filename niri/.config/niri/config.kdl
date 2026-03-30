@@ -31,7 +31,7 @@ input {
     touchpad {
         // off
         tap
-        // dwt
+        dwt
         // dwtp
         // drag false
         // drag-lock
@@ -262,6 +262,10 @@ layout {
     }
 }
 
+debug {
+    render-drm-device "/dev/dri/renderD129"
+}
+
 // Add lines like this to spawn processes at startup.
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
@@ -392,7 +396,7 @@ binds {
     // #"SYSTEM"
     Mod+Escape allow-inhibiting=false hotkey-overlay-title="Lock Screen" { spawn-sh "qs -c ~/noctalia-shell ipc call lockScreen lock"; }
     Mod+M hotkey-overlay-title="Power Menu" { spawn-sh "qs -c ~/noctalia-shell ipc call sessionMenu toggle"; }
-    // The quit action will show a confirmation dialog to avoid accidental exits.
+    // The quit action will show a confirtmation dialog to avoid accidental exits.
     Mod+Shift+M hotkey-overlay-title="Quit" { quit; }
     Ctrl+Alt+Delete hotkey-overlay-title="Quit" { quit; }
     // Powers off the monitors. To turn them back on, do any input like moving the mouse or pressing a key.
