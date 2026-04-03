@@ -32,10 +32,10 @@ input {
         // off
         tap
         dwt
+        natural-scroll
         // dwtp
         // drag false
         // drag-lock
-        natural-scroll
         // accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "two-finger"
@@ -264,6 +264,7 @@ layout {
 
 debug {
     render-drm-device "/dev/dri/renderD129"
+    ignore-drm-device "/dev/dri/renderD128"
 }
 
 // Add lines like this to spawn processes at startup.
@@ -429,8 +430,8 @@ binds {
     XF86AudioNext        allow-when-locked=true hotkey-overlay-title=null { spawn-sh "playerctl next"; }
 
     // Brightness key mappings for brightnessctl.
-    XF86MonBrightnessUp   allow-when-locked=true hotkey-overlay-title=null { spawn-sh "brightnessctl -d amdgpu_bl2 set +10%"; }
-    XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title=null { spawn-sh "brightnessctl -d amdgpu_bl2 set 10%-"; }
+    XF86MonBrightnessUp   allow-when-locked=true hotkey-overlay-title=null { spawn-sh "brightnessctl -d amdgpu_bl2 set +5%"; }
+    XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title=null { spawn-sh "brightnessctl -d amdgpu_bl2 set 5%-"; }
 
 
     // #"WINDOW MANAGEMENT"
