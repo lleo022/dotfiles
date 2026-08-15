@@ -162,9 +162,17 @@ window-rule {
 window-rule {
     match app-id=r#"firefox$"#  // Firefox
     match app-id="^code$"       // VSCode
+    match app-id="^windsurf$"   // Windsurf
     match app-id="^obsidian$"   // Obsidian
     match app-id="Unity"        // Unity Editor
+    match app-id="VirtualBox Machine" // VBox VM
+    match app-id="org.kde.haruna"     // Haruna Media Player
     default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="^twintaillauncher$"    // TTL
+    default-column-width { proportion 0.9; }
 }
 
 window-rule {
@@ -172,7 +180,14 @@ window-rule {
     match app-id="^Slack$"      // Slack
     match app-id="^Spotify$"    // Spotify
     match app-id="^steam$"      // Steam
+    match app-id="^net.lutris.Lutris$"// Lutris
+    match app-id="VirtualBox Manager" // VBox Menu
     default-column-width { proportion 0.8; }
+}
+
+window-rule {
+    match app-id="^calibre-gui$"   
+    default-column-width { proportion 0.7; }
 }
 
 // Privacy rules
@@ -188,6 +203,12 @@ window-rule {
 window-rule {
     geometry-corner-radius 8
     clip-to-geometry true
+}
+
+window-rule { 
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"# 
+    default-floating-position x=0 y=0 relative-to="bottom-right" 
+    open-focused false 
 }
 
 
