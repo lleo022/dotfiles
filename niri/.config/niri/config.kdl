@@ -160,28 +160,27 @@ window-rule {
 
 // App sizing rules
 window-rule {
-    match app-id=r#"firefox$"#  // Firefox
-    match app-id="^code$"       // VSCode
-    match app-id="^windsurf$"   // Windsurf
-    match app-id="^obsidian$"   // Obsidian
-    match app-id="Unity"        // Unity Editor
-    match app-id="VirtualBox Machine" // VBox VM
-    match app-id="org.kde.haruna"     // Haruna Media Player
+    match app-id=r#"firefox$"#
+    match app-id="^code$"
+    match app-id="^obsidian$"
+    match app-id="Unity"
+    match app-id="VirtualBox Machine"
+    match app-id="org.kde.haruna"
     default-column-width { proportion 1.0; }
 }
 
 window-rule {
-    match app-id="^twintaillauncher$"    // TTL
+    match app-id="^twintaillauncher$"
     default-column-width { proportion 0.9; }
 }
 
 window-rule {
-    match app-id="^discord$"    // Discord
-    match app-id="^Slack$"      // Slack
-    match app-id="^Spotify$"    // Spotify
-    match app-id="^steam$"      // Steam
-    match app-id="^net.lutris.Lutris$"// Lutris
-    match app-id="VirtualBox Manager" // VBox Menu
+    match app-id="^discord$"
+    match app-id="^Slack$"
+    match app-id="^Spotify$"
+    match app-id="^steam$"
+    match app-id="^net.lutris.Lutris$"
+    match app-id="VirtualBox Manager"
     default-column-width { proportion 0.8; }
 }
 
@@ -459,4 +458,3 @@ gestures {
 }
 
 include "./noctalia.kdl"
-
