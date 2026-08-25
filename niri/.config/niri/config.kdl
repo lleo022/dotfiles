@@ -9,7 +9,7 @@ environment {
 
 // Spawn processes on startup
 spawn-at-startup "xwayland-satellite"
-spawn-sh-at-startup "qs -c ~/noctalia-shell" // Noctalia Shell
+spawn-at-startup "noctalia" // Noctalia Shell
 spawn-sh-at-startup "gnome-keyring-daemon --start --components=secrets,ssh,pkcs11" // Gnome Keyring for VSCode
 spawn-sh-at-startup "env XDG_MENU_PREFIX=arch- kbuildsycoca6"
 // Note that running niri as a session supports xdg-desktop-autostart,
@@ -215,15 +215,15 @@ window-rule {
 binds {
     // #"APPLICATIONS"
     Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
-    Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "qs -c ~/noctalia-shell ipc call launcher toggle"; }
-    Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "qs -c ~/noctalia-shell ipc call wallpaper toggle"; }
-    Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "qs -c ~/noctalia-shell ipc call plugin:keybind-cheatsheet toggle"; }
+    Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "noctalia msg panel-toggle wallpaper"; }
+    Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "noctalia msg plugin-toggle keybind-cheatsheet"; }
     Mod+E hotkey-overlay-title="File Manager" { spawn "dolphin"; }
 
 
     // #"SYSTEM"
-    Mod+Escape allow-inhibiting=false hotkey-overlay-title="Lock Screen" { spawn-sh "qs -c ~/noctalia-shell ipc call lockScreen lock"; }
-    Mod+M hotkey-overlay-title="Power Menu" { spawn-sh "qs -c ~/noctalia-shell ipc call sessionMenu toggle"; }
+    Mod+Escape allow-inhibiting=false hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia msg session lock"; }
+    Mod+M hotkey-overlay-title="Power Menu" { spawn-sh "noctalia msg panel-toggle session"; }
     Mod+Shift+M hotkey-overlay-title="Quit" { quit; }
     Ctrl+Alt+Delete hotkey-overlay-title="Quit" { quit; }
     Mod+Shift+P hotkey-overlay-title="Power Off Monitors" { power-off-monitors; } // Interact to turn back on.
@@ -457,4 +457,3 @@ gestures {
     }
 }
 
-include "./noctalia.kdl"
