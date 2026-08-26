@@ -1,0 +1,8 @@
+# --- Structure ---
+font_family      JetBrainsMono Nerd Font
+font_size        11.0
+window_padding_width 15
+background_opacity 1
+
+
+include themes/noctalia.conf
