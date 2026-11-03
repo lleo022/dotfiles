@@ -8,8 +8,8 @@ environment {
 }
 
 // Spawn processes on startup
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "noctalia" // Noctalia Shell
+spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "gnome-keyring-daemon --start --components=secrets,ssh,pkcs11" // Gnome Keyring for VSCode
 spawn-sh-at-startup "env XDG_MENU_PREFIX=arch- kbuildsycoca6"
 // Note that running niri as a session supports xdg-desktop-autostart,
@@ -30,8 +30,7 @@ input {
             // If empty, niri will fetch xkb settings from org.freedesktop.locale1.
             // Control these using localectl set-x11-remap
         }
-
-        numlock // Enable numlock on startup. Omitting disables it.
+        // numlock // Enable numlock on startup. Omitting disables it.
     }
 
     // Uses libinput settings.
@@ -114,8 +113,7 @@ layout {
     focus-ring {
         // off
         width 4
-        // active-color "#7fc8ff"
-        // inactive-color "#505050"
+        // active-color, inactive-color
         // Gradients take precedence over solid colors
         // active-gradient from="#80c8ff" to="#c7ff7f" angle=45
         // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
@@ -124,9 +122,7 @@ layout {
     border { // same settings as focus-ring
         off // Enable border to always see window edges (similar to focus-ring)
         width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        urgent-color "#9b0000"
+        // active-color, inactive-color, urgent-color
     }
 
     shadow {
@@ -161,11 +157,12 @@ window-rule {
 // App sizing rules
 window-rule {
     match app-id=r#"firefox$"#
-    match app-id="^code$"
-    match app-id="^obsidian$"
+    match app-id="^com.microsoft.VSCode$"
+    match app-id="obsidian"
     match app-id="Unity"
     match app-id="VirtualBox Machine"
     match app-id="org.kde.haruna"
+    match app-id="libreoffice-writer"
     default-column-width { proportion 1.0; }
 }
 
@@ -176,7 +173,7 @@ window-rule {
 
 window-rule {
     match app-id="^discord$"
-    match app-id="^Slack$"
+    match app-id="^slack$"
     match app-id="^Spotify$"
     match app-id="^steam$"
     match app-id="^net.lutris.Lutris$"
@@ -218,7 +215,7 @@ binds {
     Mod+Space hotkey-overlay-title="App Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+Shift+W hotkey-overlay-title="Wallpaper Selector" { spawn-sh "noctalia msg panel-toggle wallpaper"; }
     Mod+Shift+Slash hotkey-overlay-title="Keybinds List" { spawn-sh "noctalia msg panel-toggle kenn/keybind-cheatsheet:cheatsheet"; }
-    Mod+E hotkey-overlay-title="File Manager" { spawn "dolphin"; }
+    Mod+E hotkey-overlay-title="File Manager" { spawn "env" "QT_QPA_PLATFORMTHEME=kde" "dolphin"; }
 
 
     // #"SYSTEM"
@@ -236,8 +233,8 @@ binds {
     // Volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
     // `-l 1.0` limits the volume to 100%.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
@@ -457,8 +454,5 @@ gestures {
         off 
     }
 }
-
-
-
 
 include "noctalia.kdl"

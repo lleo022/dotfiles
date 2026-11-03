@@ -1,4 +1,4 @@
 .vscode
 niri/.config/niri/noctalia.kdl
 kitty/.config/kitty/current-theme.conf
-kitty/.config/kitty/themes/noctalia.conf
+noctalia.conf
