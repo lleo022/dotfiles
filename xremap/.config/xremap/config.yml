@@ -1,0 +1,6 @@
+keymap:
+  - name: Firefox Ctrl+E
+    application:
+      only: [firefox]
+    remap:
+      C-e: C-l

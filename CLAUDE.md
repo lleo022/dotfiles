@@ -14,6 +14,8 @@ Each top-level directory is a stow package whose contents mirror `$HOME`:
 - `niri`, `kitty`, `fastfetch` are stowed as whole-directory symlinks (`~/.config/niri -> ../dotfiles/niri/.config/niri`), so edits here take effect live and new files in those dirs appear in `~/.config` immediately.
 - `fish` is stowed per-file (`~/.config/fish/` is a real dir holding untracked `fish_variables`, `completions/`, etc.). `config.fish` sources the CachyOS default config, which already adds `~/.local/bin` etc. to `PATH`. Session-wide env vars (e.g. `QT_QPA_PLATFORMTHEME`) belong in niri's `environment {}` block, not fish. After adding a file to a package, re-run `stow -R <pkg>` to link it.
 
+- `xremap` holds `.config/xremap/config.yml` (whole-dir link) and `.config/systemd/user/xremap.service` (per-file link; `~/.config/systemd/user/` also holds untracked units and `*.wants/` enable links). On a new machine: `stow xremap && systemctl --user enable --now xremap.service`. xremap reads its config only at start, so after editing run `systemctl --user restart xremap.service` (and `daemon-reload` after editing the unit).
+
 ## Noctalia-generated files (do not commit)
 
 Noctalia writes theme files that are gitignored and must stay untracked:
