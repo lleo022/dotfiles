@@ -16,6 +16,18 @@ Each top-level directory is a stow package whose contents mirror `$HOME`:
 
 - `xremap` holds `.config/xremap/config.yml` (whole-dir link) and `.config/systemd/user/xremap.service` (per-file link; `~/.config/systemd/user/` also holds untracked units and `*.wants/` enable links). On a new machine: `stow xremap && systemctl --user enable --now xremap.service`. xremap reads its config only at start, so after editing run `systemctl --user restart xremap.service` (and `daemon-reload` after editing the unit).
 
+- `niri` also holds `.config/systemd/user/niri.service.d/gpu.conf`, a drop-in that pins niri to the AMD iGPU (Mesa/radeonsi, PRIME offload off). systemd ignores a **symlinked drop-in directory**, so `~/.config/systemd/user/niri.service.d/` must be a real dir with only `gpu.conf` linked. On a new machine run `mkdir -p ~/.config/systemd/user/niri.service.d` before `stow niri`. Verify with `systemctl --user daemon-reload && systemctl --user show niri.service -p DropInPaths -p Environment`.
+
+## Packages
+
+Curated, tiered package lists at the repo root (files, not dirs, so `stow */` ignores them). Install in order on a fresh CachyOS install:
+
+1. `pkglist-1-core.txt`: what this repo needs (niri, kitty, sddm, xremap, fonts, portals, Noctalia runtime + build deps, laptop hardware tools)
+2. `pkglist-2-apps.txt`: daily apps, codecs, dev toolchains
+3. `pkglist-3-extra.txt`: situational apps + the KDE Plasma fallback session
+
+`paru -S --needed - < pkglist-1-core.txt` (then 2, then 3). Keep them plain (one name per line, no comments): they're piped straight to paru. They are hand-curated, not `pacman -Qqe` dumps: deliberately excluded are packages the CachyOS installer / `chwd` provides (base, kernels, firmware, bootloader, filesystem tools, GPU drivers, `cachyos-*`) and fun/misc apps. When installing something worth keeping, add it to the right tier by hand. Noctalia v5 itself is not listed: it's built from source (`~/noctalia-shell`, installed to `/usr/local/bin/noctalia`); its build deps are in tier 1.
+
 ## Noctalia-generated files (do not commit)
 
 Noctalia writes theme files that are gitignored and must stay untracked:
